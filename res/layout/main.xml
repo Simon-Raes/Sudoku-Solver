@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+
+    <fragment android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:name="be.simonraes.sudokusolver.fragment.SudokuViewFragment" android:id="@+id/sudokuFragment"
+              android:layout_gravity="center_horizontal" tools:layout="@layout/sudokuview_layout"/>
+    <fragment android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:name="be.simonraes.sudokusolver.fragment.NumpadFragment" android:id="@+id/numpadFragment"
+              android:layout_gravity="center_horizontal" tools:layout="@layout/numpad_layout"/>
+</LinearLayout>
+
