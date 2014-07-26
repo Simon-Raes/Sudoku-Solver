@@ -8,10 +8,12 @@
               android:layout_height="wrap_content"
               android:name="be.simonraes.sudokusolver.fragment.SudokuViewFragment" android:id="@+id/sudokuFragment"
               android:layout_gravity="center_horizontal" tools:layout="@layout/sudokuview_layout"/>
-    <fragment android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"            >
+        <fragment android:layout_width="match_parent"
+                  android:layout_height="fill_parent"
+                  android:name="be.simonraes.sudokusolver.fragment.NumpadFragment" android:id="@+id/numpadFragment"
+                  android:layout_gravity="center" tools:layout="@layout/numpad_layout"/>
+    </LinearLayout>
 
-              android:name="be.simonraes.sudokusolver.fragment.NumpadFragment" android:id="@+id/numpadFragment"
-              android:layout_gravity="center_horizontal" tools:layout="@layout/numpad_layout"/>
 </LinearLayout>
 

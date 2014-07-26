@@ -2,25 +2,36 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:layout_width="match_parent" android:layout_height="fill_parent"
               android:orientation="horizontal">
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent"
-                  android:orientation="vertical">
+    <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent"
+                  android:orientation="vertical"
+                  android:layout_weight="1">
         <ImageButton android:layout_width="fill_parent" android:layout_height="0dp"
                      android:id="@+id/btnDelete"
                      android:layout_weight="1"
                      android:src="@android:drawable/ic_input_delete"/>
+
         <Button android:layout_width="fill_parent" android:layout_height="0dp"
                 android:layout_weight="1"
                 android:id="@+id/btnClear"
                 android:text="Clear"/>
+
+        <Button android:layout_width="fill_parent" android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/btnHint"
+                android:text="Hint"/>
+        <Button android:layout_width="fill_parent" android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/btnSolve"
+                android:text="Solve"/>
     </LinearLayout>
     <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent"
-                  android:layout_weight="1"
+                  android:layout_weight="2"
                   android:orientation="vertical">
 
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-                android:layout_weight="1">
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
+                      android:layout_weight="1">
             <Button android:layout_width="0dp" android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:id="@+id/btnOne"
@@ -34,7 +45,7 @@
                     android:id="@+id/btnThree"
                     android:text="3"/>
         </LinearLayout>
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
                       android:layout_weight="1">
             <Button android:layout_width="0dp" android:layout_height="fill_parent"
                     android:layout_weight="1"
@@ -49,7 +60,7 @@
                     android:id="@+id/btnSix"
                     android:text="6"/>
         </LinearLayout>
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
                       android:layout_weight="1">
             <Button android:layout_width="0dp" android:layout_height="fill_parent"
                     android:layout_weight="1"
@@ -65,16 +76,5 @@
                     android:text="9"/>
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent"
-                  android:orientation="vertical">
-        <Button android:layout_width="fill_parent" android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/btnHint"
-                android:text="Hint"/>
-        <Button android:layout_width="fill_parent" android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/btnSolve"
-                android:text="Solve"/>
 
-    </LinearLayout>
 </LinearLayout>

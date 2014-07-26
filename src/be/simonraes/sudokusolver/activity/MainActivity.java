@@ -102,7 +102,7 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
             clearErrors();
             refreshSudokuView();
         } catch (NoSolutionException e) {
-            Toast.makeText(this, "Impossible input.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid input.", Toast.LENGTH_SHORT).show();
             errors = solver.getErrors();
             sudokuViewFragment.setValues(values, errors, enteredValues);
         }
