@@ -46,7 +46,6 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
     }
 
 
-
     /**
      * Handles button clicks for the numpad fragment.
      */
@@ -113,9 +112,17 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
     }
 
     private void setNumberForSelectedField(int number) {
-        values[sudokuViewFragment.getSelectedX()][sudokuViewFragment.getSelectedY()] = number;
-        enteredValues[sudokuViewFragment.getSelectedX()][sudokuViewFragment.getSelectedY()] = number;
-        refreshSudokuView();
+        int selectedX = sudokuViewFragment.getSelectedX();
+        int selectedY = sudokuViewFragment.getSelectedY();
+
+        if (selectedX >= 0 && selectedY >= 0) {
+            values[sudokuViewFragment.getSelectedX()][sudokuViewFragment.getSelectedY()] = number;
+            enteredValues[sudokuViewFragment.getSelectedX()][sudokuViewFragment.getSelectedY()] = number;
+            refreshSudokuView();
+        } else {
+            //todo: some form of feedback to let user know he needs to select a grid square
+        }
+
     }
 
     private void reRandom() {
@@ -130,6 +137,8 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
 
     private void clearBoard() {
         values = new int[9][9];
+        errors = new int[9][9];
+        enteredValues = new int[9][9];
         refreshSudokuView();
     }
 

@@ -2,6 +2,8 @@ package be.simonraes.sudokusolver.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

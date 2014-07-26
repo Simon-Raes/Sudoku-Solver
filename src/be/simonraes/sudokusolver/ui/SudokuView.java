@@ -21,8 +21,8 @@ public class SudokuView extends View {
 
     private float width;          // width of one tile
     private float height;         // height of one tile
-    private int selectionX;       // X index of selection
-    private int selectionY;       // Y index of selection
+    private int selectionX = -1;       // X index of selection
+    private int selectionY = -1;       // Y index of selection
 
     private final Rect selRect = new Rect();
 
@@ -95,57 +95,79 @@ public class SudokuView extends View {
 
         // Draw the background...
         Paint background = new Paint();
-        background.setColor(getResources().getColor(R.color.puzzle_background));
+        background.setColor(getResources().getColor(R.color.VeryLightGrey));
         canvas.drawRect(0, 0, getWidth(), getHeight(), background);
 
         // Draw the board...
 
         // Define colors for the grid lines
         Paint dark = new Paint();
-        dark.setColor(getResources().getColor(R.color.puzzle_dark));
+        dark.setColor(getResources().getColor(R.color.DeleteGrey));
 
-        Paint hilite = new Paint();
-        hilite.setColor(getResources().getColor(R.color.puzzle_hilite));
+//        Paint hilite = new Paint();
+//        hilite.setColor(getResources().getColor(R.color.puzzle_hilite));
 
         Paint light = new Paint();
-        light.setColor(getResources().getColor(R.color.puzzle_light));
+        light.setColor(getResources().getColor(R.color.DeleteGreyFocused));
 
         // Draw the minor grid lines
         for (int i = 0; i < 9; i++) {
             canvas.drawLine(0, i * height, getWidth(), i * height, light);
-            canvas.drawLine(0, i * height + 1, getWidth(), i * height + 1, hilite);
+//            canvas.drawLine(0, i * height + 1, getWidth(), i * height + 1, hilite);
             canvas.drawLine(i * width, 0, i * width, getHeight(), light);
-            canvas.drawLine(i * width + 1, 0, i * width + 1, getHeight(), hilite);
+//            canvas.drawLine(i * width + 1, 0, i * width + 1, getHeight(), hilite);
         }
 
         // Draw the major grid lines
-        for (int i = 0; i < 9; i++) {
-            if (i % 3 != 0)
+        for (int i = 0; i < 10; i++) {
+            if (i % 3 != 0) {
                 continue;
-            canvas.drawLine(0, i * height, getWidth(), i * height, dark);
-            canvas.drawLine(0, i * height + 1, getWidth(), i * height + 1, hilite);
-            canvas.drawLine(i * width, 0, i * width, getHeight(), dark);
-            canvas.drawLine(i * width + 1, 0, i * width + 1, getHeight(), hilite);
+            }
+            if (i >= 9) {
+                canvas.drawLine(0, i * height-1, getWidth(), i * height-1, dark);
+
+                canvas.drawLine(i * width - 1, 0, i * width - 1, getHeight(), dark);
+            } else {
+                canvas.drawLine(0, i * height, getWidth(), i * height, dark);
+
+                canvas.drawLine(i * width, 0, i * width, getHeight(), dark);
+
+            }
+
+
+        }
+
+//        for(int i = 0; i < 5; i++){
+//            if(i==4){
+//                canvas.drawLine(0, i * height-5, getWidth(), i * height-5, dark);
+//            } else {
+//                canvas.drawLine(0, i * height, getWidth(), i * height, dark);
+//
+//            }
+//        }
+
+
+        // Draw the selection box.
+
+        if (getSelectedX() >= 0 && getSelectedY() >= 0) {
+            Paint selectionPaint = new Paint();
+            selectionPaint.setColor(getResources().getColor(R.color.SolveBlue));
+            canvas.drawRect(getSelectedX() * width + 5, getSelectedY() * height + 5, getSelectedX() * width + width - 5, getSelectedY() * height + height - 5, selectionPaint);
+
+            Paint fillerPaint = new Paint();
+            fillerPaint.setColor(getResources().getColor(R.color.VeryLightGrey));
+            canvas.drawRect(getSelectedX() * width + 10, getSelectedY() * height + 10, getSelectedX() * width + width - 10, getSelectedY() * height + height - 10, fillerPaint);
         }
 
         // Draw the numbers...
 
         // Numbers found by the algorithm.
         Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(getResources().getColor(R.color.puzzle_foreground));
-        textPaint.setStyle(Paint.Style.FILL);
+        textPaint.setColor(getResources().getColor(R.color.TextGrey));
+        textPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         textPaint.setTextSize(height * 0.75f);
         textPaint.setTextScaleX(width / height);
         textPaint.setTextAlign(Paint.Align.CENTER);
-
-        // Numbers that make the input impossible to solve.
-        Paint errorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        errorPaint.setColor(getResources().getColor(R.color.DireOrange));
-        errorPaint.setStyle(Paint.Style.FILL);
-        errorPaint.setTextSize(height * 0.75f);
-        errorPaint.setStrokeWidth(3);
-        errorPaint.setTextScaleX(width / height);
-        errorPaint.setTextAlign(Paint.Align.CENTER);
 
         // Correct input that was entered by the user.
         Paint enteredPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -155,6 +177,15 @@ public class SudokuView extends View {
         enteredPaint.setStrokeWidth(3);
         enteredPaint.setTextScaleX(width / height);
         enteredPaint.setTextAlign(Paint.Align.CENTER);
+
+        // Numbers that make the input impossible to solve.
+        Paint errorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        errorPaint.setColor(getResources().getColor(R.color.DireOrange));
+        errorPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        errorPaint.setTextSize(height * 0.75f);
+        errorPaint.setStrokeWidth(3);
+        errorPaint.setTextScaleX(width / height);
+        errorPaint.setTextAlign(Paint.Align.CENTER);
 
         // Draw the number in the center of the tile
         Paint.FontMetrics fm = textPaint.getFontMetrics();
@@ -197,11 +228,7 @@ public class SudokuView extends View {
             }
         }
 
-        // Draw the selection box.
 
-        Paint selectionPaint = new Paint();
-        selectionPaint.setColor(getResources().getColor(R.color.puzzle_selected));
-        canvas.drawRect(selRect, selectionPaint);
     }
 
 
@@ -225,8 +252,19 @@ public class SudokuView extends View {
 
     private void select(int x, int y) {
         invalidate(selRect);
-        selectionX = Math.min(Math.max(x, 0), 8);
-        selectionY = Math.min(Math.max(y, 0), 8);
+        int newX = Math.min(Math.max(x, 0), 8);
+        int newY = Math.min(Math.max(y, 0), 8);
+
+        if (newX == selectionX && newY == selectionY) {
+            selectionX = -1;
+            selectionY = -1;
+        } else {
+            selectionX = newX;
+            selectionY = newY;
+        }
+
+//        selectionX = Math.min(Math.max(x, 0), 8);
+//        selectionY = Math.min(Math.max(y, 0), 8);
         getRect(selectionX, selectionY, selRect);
         invalidate(selRect);
     }
