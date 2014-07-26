@@ -97,6 +97,7 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
     public void solve() {
         Solver solver = new Solver();
         try {
+            //todo: put solver in asynctask so the UI thread doesn't lock up with hard/impossible inputs
             solver.solveSudoku(values);
             clearErrors();
             refreshSudokuView();

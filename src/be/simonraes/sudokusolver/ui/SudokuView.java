@@ -19,12 +19,10 @@ public class SudokuView extends View {
 
     private static final String TAG = "Sudoku";
 
-    private float width;          // width of one tile
-    private float height;         // height of one tile
-    private int selectionX = -1;       // X index of selection
-    private int selectionY = -1;       // Y index of selection
-
-    private final Rect selRect = new Rect();
+    private float width;               // Width of one tile
+    private float height;              // Height of one tile
+    private int selectionX = -1;       // X index of selection (0-8)
+    private int selectionY = -1;       // Y index of selection (0-8)
 
     private int[][] values;
     private int[][] errors = new int[9][9];
@@ -47,7 +45,6 @@ public class SudokuView extends View {
 
     @Override
     public Parcelable onSaveInstanceState() {
-
         Bundle bundle = new Bundle();
         bundle.putParcelable("instanceState", super.onSaveInstanceState());
         bundle.putInt("selectionX", selectionX);
@@ -57,7 +54,6 @@ public class SudokuView extends View {
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
             selectionX = bundle.getInt("selectionX");
@@ -68,16 +64,14 @@ public class SudokuView extends View {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        width = w / 9f;
-        height = h / 9f;
-        getRect(selectionX, selectionY, selRect);
-
-        super.onSizeChanged(w, h, oldw, oldh);
+    protected void onSizeChanged(int newWidth, int newHeight, int oldWidth, int oldHeight) {
+        width = newWidth / 9f;
+        height = newHeight / 9f;
+        super.onSizeChanged(newWidth, newHeight, oldWidth, oldHeight);
     }
 
     /**
-     * Makes the view square (to whichever dimension is smallest).
+     * Makes the view square (whichever dimension is smallest).
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -88,78 +82,68 @@ public class SudokuView extends View {
 
     @Override
     protected void onDraw(final Canvas canvas) {
-        drawBoard(canvas);
+        drawBackground(canvas);
+        drawGridLines(canvas);
+        drawSelectionBox(canvas);
+        drawNumbers(canvas);
     }
 
-    private void drawBoard(Canvas canvas) {
-
-        // Draw the background...
+    private void drawBackground(Canvas canvas){
         Paint background = new Paint();
         background.setColor(getResources().getColor(R.color.VeryLightGrey));
         canvas.drawRect(0, 0, getWidth(), getHeight(), background);
+    }
 
-        // Draw the board...
+    private void drawGridLines(Canvas canvas){
 
-        // Define colors for the grid lines
-        Paint dark = new Paint();
-        dark.setColor(getResources().getColor(R.color.DeleteGrey));
+        Paint minorLinesPaint = new Paint();
+        minorLinesPaint.setColor(getResources().getColor(R.color.DeleteGreyFocused));
 
-//        Paint hilite = new Paint();
-//        hilite.setColor(getResources().getColor(R.color.puzzle_hilite));
+        Paint majorLinesPaint = new Paint();
+        majorLinesPaint.setColor(getResources().getColor(R.color.TextGrey));
 
-        Paint light = new Paint();
-        light.setColor(getResources().getColor(R.color.DeleteGreyFocused));
+        // (Slight overdraw here (some small gridlines are overwritten by major gridlines))
 
         // Draw the minor grid lines
-        for (int i = 0; i < 9; i++) {
-            canvas.drawLine(0, i * height, getWidth(), i * height, light);
-//            canvas.drawLine(0, i * height + 1, getWidth(), i * height + 1, hilite);
-            canvas.drawLine(i * width, 0, i * width, getHeight(), light);
-//            canvas.drawLine(i * width + 1, 0, i * width + 1, getHeight(), hilite);
+        for (int i = 1; i < values.length; i++) {
+            // Horizontal
+            canvas.drawLine(0, i * height, getWidth(), i * height, minorLinesPaint);
+            // Vertical
+            canvas.drawLine(i * width, 0, i * width, getHeight(), minorLinesPaint);
         }
 
         // Draw the major grid lines
-        for (int i = 0; i < 10; i++) {
-            if (i % 3 != 0) {
-                continue;
-            }
-            if (i >= 9) {
-                canvas.drawLine(0, i * height-1, getWidth(), i * height-1, dark);
+        for (int i = 0; i < 4; i++) {
 
-                canvas.drawLine(i * width - 1, 0, i * width - 1, getHeight(), dark);
+            if(i<3){
+                // Horizontal
+                canvas.drawLine(0, i * 3 * height, getWidth(), i*3 * height, majorLinesPaint);
+                // Vertical
+                canvas.drawLine(i * 3 * width , 0, i *3* width, getHeight(), majorLinesPaint);
             } else {
-                canvas.drawLine(0, i * height, getWidth(), i * height, dark);
+                // Draw the last major line 1px closer so it doesn't fall outside the canvas.
 
-                canvas.drawLine(i * width, 0, i * width, getHeight(), dark);
-
+                // Horizontal
+                canvas.drawLine(0, i * 3 * height-1, getWidth(), i*3 * height-1, majorLinesPaint);
+                // Vertical
+                canvas.drawLine(i * 3 * width - 1, 0, i *3* width - 1, getHeight(), majorLinesPaint);
             }
-
-
         }
+    }
 
-//        for(int i = 0; i < 5; i++){
-//            if(i==4){
-//                canvas.drawLine(0, i * height-5, getWidth(), i * height-5, dark);
-//            } else {
-//                canvas.drawLine(0, i * height, getWidth(), i * height, dark);
-//
-//            }
-//        }
-
-
-        // Draw the selection box.
-
+    private void drawSelectionBox(Canvas canvas){
         if (getSelectedX() >= 0 && getSelectedY() >= 0) {
             Paint selectionPaint = new Paint();
-            selectionPaint.setColor(getResources().getColor(R.color.SolveBlue));
+            selectionPaint.setColor(getResources().getColor(R.color.SolveBlueFocused));
             canvas.drawRect(getSelectedX() * width + 5, getSelectedY() * height + 5, getSelectedX() * width + width - 5, getSelectedY() * height + height - 5, selectionPaint);
 
             Paint fillerPaint = new Paint();
             fillerPaint.setColor(getResources().getColor(R.color.VeryLightGrey));
             canvas.drawRect(getSelectedX() * width + 10, getSelectedY() * height + 10, getSelectedX() * width + width - 10, getSelectedY() * height + height - 10, fillerPaint);
         }
+    }
 
-        // Draw the numbers...
+    private void drawNumbers(Canvas canvas){
 
         // Numbers found by the algorithm.
         Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -197,7 +181,7 @@ public class SudokuView extends View {
         if (values != null) {
 
             Paint paintForSquare = null;
-            String textForSquare = "";
+            String textForSquare;
 
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
@@ -227,10 +211,7 @@ public class SudokuView extends View {
                 }
             }
         }
-
-
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -242,16 +223,8 @@ public class SudokuView extends View {
         return true;
     }
 
-
-    public void setValues(int[][] values, int[][] errors, int[][] enteredValues) {
-        this.values = values;
-        this.errors = errors;
-        this.enteredValues = enteredValues;
-        invalidate();
-    }
-
     private void select(int x, int y) {
-        invalidate(selRect);
+
         int newX = Math.min(Math.max(x, 0), 8);
         int newY = Math.min(Math.max(y, 0), 8);
 
@@ -263,15 +236,15 @@ public class SudokuView extends View {
             selectionY = newY;
         }
 
-//        selectionX = Math.min(Math.max(x, 0), 8);
-//        selectionY = Math.min(Math.max(y, 0), 8);
-        getRect(selectionX, selectionY, selRect);
-        invalidate(selRect);
+        invalidate();
     }
 
 
-    private void getRect(int x, int y, Rect rect) {
-        rect.set((int) (x * width), (int) (y * height), (int) (x * width + width), (int) (y * height + height));
+    public void setValues(int[][] values, int[][] errors, int[][] enteredValues) {
+        this.values = values;
+        this.errors = errors;
+        this.enteredValues = enteredValues;
+        invalidate();
     }
 
     public int getSelectedX() {
