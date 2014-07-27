@@ -85,9 +85,9 @@ public class Solver {
     }
 
     public boolean isErrorFree(int[][] model) {
-        if (this.model == null) {
+//        if (this.model == null) {
             this.model = model;
-        }
+//        }
 
         errors = new int[9][9];
 
@@ -95,7 +95,7 @@ public class Solver {
         for (int i = 0; i < model.length; i++) {
             for (int j = 0; j < model.length; j++) {
                 if (model[i][j] != 0) {
-                    System.out.println("check for number " + model[i][j]);
+//                    System.out.println("check for number " + model[i][j]);
                     // Make sure all 3 checks are executed so all errors are found.
                     boolean rowHasErrors = rowContainsDuplicates(i, j, model[i][j]);
                     boolean colHasErrors = colContainsDuplicates(i, j, model[i][j]);
@@ -177,7 +177,7 @@ public class Solver {
         int counter = 0;
         for (int col = 0; col < model.length; col++) {
             if (col != column) {
-                System.out.println("comparing " + model[row][col] + " to " + num);
+//                System.out.println("comparing " + model[row][col] + " to " + num);
                 if (model[row][col] == num) {
                     errors[row][col] = num;
                     counter++;

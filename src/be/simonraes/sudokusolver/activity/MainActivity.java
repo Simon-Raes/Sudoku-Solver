@@ -105,7 +105,6 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
             //todo: put solver in asynctask so the UI thread doesn't lock up with hard/impossible inputs
             //stop searching after x seconds?
 
-            //todo: display errors realtime
 
             //todo: option to solve step by step
             //fix the row colum switching first then
@@ -113,9 +112,23 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
             clearErrors();
             refreshSudokuView();
         } catch (NoSolutionException e) {
-            Toast.makeText(this, "Invalid input.", Toast.LENGTH_SHORT).show();
-            errors = solver.getErrors();
-            sudokuViewFragment.setValues(values, errors, enteredValues);
+
+//            Toast.makeText(this, "Please fix input errors.", Toast.LENGTH_SHORT).show();
+//            errors = solver.getErrors();
+//            sudokuViewFragment.setValues(values, errors, enteredValues);
+        }
+    }
+
+    private void hint() {
+
+        try {
+            values = solver.hintSudoku(values, sudokuViewFragment.getSelectedX(), sudokuViewFragment.getSelectedY());
+            clearErrors();
+            refreshSudokuView();
+        } catch (NoSolutionException e) {
+//            Toast.makeText(this, "Please fix all errors.", Toast.LENGTH_SHORT).show();
+//            errors = solver.getErrors();
+//            sudokuViewFragment.setValues(values, errors, enteredValues);
         }
     }
 
@@ -132,41 +145,29 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
             enteredValues[sudokuViewFragment.getSelectedX()][sudokuViewFragment.getSelectedY()] = number;
             if(!solver.isErrorFree(values)){
                 errors = solver.getErrors();
-                disableSolveButton();
+                disableSolveButtons();
             } else {
                 errors = new int[9][9];
-                enableSolveButton();
+                enableSolveButtons();
             }
 
             refreshSudokuView();
         } else {
-            //todo: some form of feedback to let user know he needs to select a grid square
-            Toast.makeText(this, "Select a cell.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please select a cell.",Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void hint() {
 
-        try {
-            values = solver.hintSudoku(values, sudokuViewFragment.getSelectedX(), sudokuViewFragment.getSelectedY());
-            clearErrors();
-            refreshSudokuView();
-        } catch (NoSolutionException e) {
-            Toast.makeText(this, "Invalid input.", Toast.LENGTH_SHORT).show();
-            errors = solver.getErrors();
-            sudokuViewFragment.setValues(values, errors, enteredValues);
-        }
-    }
 
     private void clearBoard() {
         values = new int[9][9];
         errors = new int[9][9];
         enteredValues = new int[9][9];
         solver.clearData();
-        enableSolveButton();
-        System.out.println("cleared all 3 arrays");
-        System.out.println("value at errors 0,0 = "+errors[0][0]);
+        enableSolveButtons();
+//        System.out.println("cleared all 3 arrays");
+//        System.out.println("value at errors 0,0 = "+errors[0][0]);
         refreshSudokuView();
     }
 
@@ -174,11 +175,15 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
         sudokuViewFragment.setValues(values, errors, enteredValues);
     }
 
-    private void enableSolveButton(){
-        numpadFragment.enableSolveButton();
+    private void enableSolveButtons(){
+        System.out.println("main enabling buttons");
+        numpadFragment.enableSolveButton(true);
+        numpadFragment.enableHintButton(true);
     }
 
-    private void disableSolveButton(){
-        numpadFragment.disableSolveButton();
+    private void disableSolveButtons(){
+        System.out.println("main disabling buttons");
+        numpadFragment.enableSolveButton(false);
+        numpadFragment.enableHintButton(false);
     }
 }
