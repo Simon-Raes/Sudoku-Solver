@@ -3,14 +3,21 @@ package be.simonraes.sudokusolver.model;
 import be.simonraes.sudokusolver.exception.NoSolutionException;
 import be.simonraes.sudokusolver.exception.SolutionFoundException;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Created by Simon Raes on 25/07/2014.
  */
 public class Solver {
 
     private int[][] model;
+    private int[][] hintModel;
     private int[][] errors = new int[9][9];
 
+    /**
+     * Returns the values of the fully solved Sudoku.
+     */
     public int[][] solveSudoku(int[][] model) throws NoSolutionException {
         this.model = model;
 
@@ -27,12 +34,56 @@ public class Solver {
         return model;
     }
 
+    /**
+     * Returns the values with 1 extra field revealed.
+     */
+    public int[][] hintSudoku(int[][] model) throws NoSolutionException {
+        this.model = model;
+
+        ArrayList<GridLocation> openSpaces = new ArrayList<GridLocation>();
+
+        if (isErrorFree()) {
+            try {
+                hintModel = new int[model.length][model.length];
+
+                // Copy all model values to the new hintarray
+                for (int i = 0; i < hintModel.length; i++) {
+                    for (int j = 0; j < hintModel.length; j++) {
+                        hintModel[i][j] = model[i][j];
+                        if (model[i][j] == 0) {
+                            // Add the found open cell to the list.
+                            openSpaces.add(new GridLocation(i, j));
+                        }
+                    }
+                }
+
+                if (openSpaces.size() > 0) {
+
+                    // Put the full solution in the values array.
+                    solve(0, 0);
+                }
+
+
+            } catch (SolutionFoundException e) {
+
+                // Reveal 1 random grid cell.
+                Random random = new Random();
+                GridLocation hintLocation = openSpaces.get(random.nextInt(openSpaces.size()));
+                hintModel[hintLocation.getX()][hintLocation.getY()] = model[hintLocation.getX()][hintLocation.getY()];
+            }
+        } else {
+            throw new NoSolutionException();
+        }
+
+        return hintModel;
+    }
+
     private boolean isErrorFree() {
         boolean errorFree = true;
         for (int i = 0; i < model.length; i++) {
             for (int j = 0; j < model.length; j++) {
                 if (model[i][j] != 0) {
-                    //make sure all 3 checks are executed so all errors are found
+                    // Make sure all 3 checks are executed so all errors are found.
                     boolean rowHasErrors = rowContainsDuplicates(i, j, model[i][j]);
                     boolean colHasErrors = colContainsDuplicates(i, j, model[i][j]);
                     boolean boxHasErrors = boxContainsDuplicates(i, j, model[i][j]);
@@ -48,9 +99,8 @@ public class Solver {
 
     private void solve(int row, int col) throws SolutionFoundException {
 
-        // Throw an exception to stop the process if the puzzle is solved
         if (row > 8) {
-            // Exception to break out of code
+            // Exception to break out of code if a solution is found.
             throw new SolutionFoundException();
         }
 
@@ -111,7 +161,6 @@ public class Solver {
     }
 
     private boolean rowContainsDuplicates(int row, int column, int num) {
-//        System.out.println("checking for row dupes");
         int counter = 0;
         for (int col = 0; col < model.length; col++) {
             if (col != column) {
@@ -125,7 +174,6 @@ public class Solver {
     }
 
     private boolean colContainsDuplicates(int roww, int col, int num) {
-//        System.out.println("checking for COL dupes");
         int counter = 0;
         for (int row = 0; row < model.length; row++) {
             if (row != roww) {
@@ -140,7 +188,6 @@ public class Solver {
     }
 
     private boolean boxContainsDuplicates(int row, int col, int num) {
-//        System.out.println("checking for BOX dupes");
         int counter = 0;
 
         int ogRow = row;

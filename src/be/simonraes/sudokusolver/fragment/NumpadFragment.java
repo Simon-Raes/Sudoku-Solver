@@ -25,6 +25,8 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
         public void buttonClicked(int id);
     }
 
+    //todo: better look for numpad number buttons
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

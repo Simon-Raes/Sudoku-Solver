@@ -127,13 +127,17 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
     }
 
     private void reRandom() {
-        Random random = new Random();
-        for (int i = 0; i < values.length; i++) {
-            for (int j = 0; j < values.length; j++) {
-                values[i][j] = random.nextInt(9) + 1;
-            }
+        Solver solver = new Solver();
+        try {
+            System.out.println("getting a ghint");
+            values = solver.hintSudoku(values);
+            clearErrors();
+            refreshSudokuView();
+        } catch (NoSolutionException e) {
+            Toast.makeText(this, "Invalid input.", Toast.LENGTH_SHORT).show();
+            errors = solver.getErrors();
+            sudokuViewFragment.setValues(values, errors, enteredValues);
         }
-        refreshSudokuView();
     }
 
     private void clearBoard() {

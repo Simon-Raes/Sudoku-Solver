@@ -3,87 +3,53 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent" android:layout_height="fill_parent"
-              android:orientation="horizontal">
-    <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent"
-                  android:orientation="vertical"
-                  android:layout_weight="1">
-        <Button android:layout_width="fill_parent" android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/btnHint"
-                android:background="@drawable/hintbutton"
-                android:textColor="@android:color/white"
-                android:layout_margin="4dp"
-                android:text="@string/btnHint"/>
-        <Button android:layout_width="fill_parent" android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/btnSolve"
-                android:background="@drawable/solvebutton"
-                android:textColor="@android:color/white"
-                android:layout_margin="4dp"
-                android:text="@string/btnSolve"/>
-        <ImageButton android:layout_width="fill_parent" android:layout_height="0dp"
-                     android:id="@+id/btnDelete"
-                     android:layout_weight="1"
-                     android:background="@drawable/deletebutton"
-                     android:layout_margin="4dp"
-                     android:src="@android:drawable/ic_input_delete"/>
-        <Button android:layout_width="fill_parent" android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/btnClear"
-                android:background="@drawable/clearbutton"
-                android:textColor="@android:color/white"
-                android:layout_margin="4dp"
-                android:text="@string/btnClear"/>
-    </LinearLayout>
-    <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent"
-                  android:layout_weight="2"
-                  android:orientation="vertical">
+              android:orientation="vertical">
+    <!-- Left side (Hint, Solve, Backspace, Clear) -->
 
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
-                      android:layout_weight="1">
-            <Button android:layout_width="0dp" android:layout_height="fill_parent"
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+        <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent"
+                      android:layout_weight="1"
+                      android:orientation="vertical">
+            <ImageButton android:layout_width="fill_parent" android:layout_height="0dp"
+                         android:id="@+id/btnDelete"
+                         android:layout_weight="1"
+                         android:background="@drawable/deletebutton"
+                         android:layout_margin="4dp"
+                         android:src="@android:drawable/ic_input_delete"/>
+            <Button android:layout_width="fill_parent" android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:id="@+id/btnOne"
-                    android:text="1"/>
-            <Button android:layout_width="0dp" android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/btnTwo"
-                    android:text="2"/>
-            <Button android:layout_width="0dp" android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/btnThree"
-                    android:text="3"/>
+                    android:id="@+id/btnClear"
+                    android:background="@drawable/clearbutton"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="4dp"
+                    android:text="@string/btnClear"/>
         </LinearLayout>
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
-                      android:layout_weight="1">
-            <Button android:layout_width="0dp" android:layout_height="fill_parent"
+        <LinearLayout android:layout_width="0dp" android:layout_height="fill_parent"
+                      android:layout_weight="1"
+                      android:orientation="vertical">
+            <Button android:layout_width="fill_parent" android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:id="@+id/btnFour"
-                    android:text="4"/>
-            <Button android:layout_width="0dp" android:layout_height="fill_parent"
+                    android:id="@+id/btnHint"
+                    android:background="@drawable/hintbutton"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="4dp"
+                    android:text="@string/btnHint"/>
+            <Button android:layout_width="fill_parent" android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:id="@+id/btnFive"
-                    android:text="5"/>
-            <Button android:layout_width="0dp" android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/btnSix"
-                    android:text="6"/>
-        </LinearLayout>
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="0dp"
-                      android:layout_weight="1">
-            <Button android:layout_width="0dp" android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/btnSeven"
-                    android:text="7"/>
-            <Button android:layout_width="0dp" android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/btnEight"
-                    android:text="8"/>
-            <Button android:layout_width="0dp" android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/btnNine"
-                    android:text="9"/>
+                    android:id="@+id/btnSolve"
+                    android:background="@drawable/solvebutton"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="4dp"
+                    android:text="@string/btnSolve"/>
         </LinearLayout>
     </LinearLayout>
+
+    <!-- Right side (Numbers) -->
+    <include android:layout_width="fill_parent" android:layout_height="0dp"
+             android:layout_weight="2"
+
+             layout="@layout/numpadnumbers"/>
 
 </LinearLayout>

@@ -134,7 +134,7 @@ public class SudokuView extends View {
     private void drawSelectionBox(Canvas canvas){
         if (getSelectedX() >= 0 && getSelectedY() >= 0) {
             Paint selectionPaint = new Paint();
-            selectionPaint.setColor(getResources().getColor(R.color.SolveBlueFocused));
+            selectionPaint.setColor(getResources().getColor(R.color.DeepPurple));
             canvas.drawRect(getSelectedX() * width + 5, getSelectedY() * height + 5, getSelectedX() * width + width - 5, getSelectedY() * height + height - 5, selectionPaint);
 
             Paint fillerPaint = new Paint();
@@ -147,7 +147,7 @@ public class SudokuView extends View {
 
         // Numbers found by the algorithm.
         Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(getResources().getColor(R.color.TextGrey));
+        textPaint.setColor(getResources().getColor(R.color.SolveBlue));
         textPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         textPaint.setTextSize(height * 0.75f);
         textPaint.setTextScaleX(width / height);
@@ -155,10 +155,9 @@ public class SudokuView extends View {
 
         // Correct input that was entered by the user.
         Paint enteredPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        enteredPaint.setColor(getResources().getColor(R.color.RadiantGreen));
+        //enteredPaint.setColor(getResources().getColor());
         enteredPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         enteredPaint.setTextSize(height * 0.75f);
-        enteredPaint.setStrokeWidth(3);
         enteredPaint.setTextScaleX(width / height);
         enteredPaint.setTextAlign(Paint.Align.CENTER);
 
