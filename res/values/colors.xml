@@ -15,6 +15,7 @@
 
     <color name="SolveBlue">#5677fc</color>
     <color name="SolveBlueFocused">#738ffe</color>
+    <color name="SolveBlueDisabled">#afbfff</color>
     <color name="HintGreen">#7cb342</color>
     <color name="HintGreenFocused">#8bc34a</color>
     <color name="ClearRed">#e84e40</color>

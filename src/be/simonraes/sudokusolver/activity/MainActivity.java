@@ -18,6 +18,7 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
 
 
     private SudokuViewFragment sudokuViewFragment;
+    private NumpadFragment numpadFragment;
     private Solver solver;
 
     @Override
@@ -36,6 +37,8 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
 
         sudokuViewFragment = (SudokuViewFragment) getFragmentManager().findFragmentById(R.id.sudokuFragment);
         sudokuViewFragment.setValues(values, errors, enteredValues);
+        numpadFragment = (NumpadFragment) getFragmentManager().findFragmentById(R.id.numpadFragment);
+
     }
 
     @Override
@@ -129,8 +132,10 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
             enteredValues[sudokuViewFragment.getSelectedX()][sudokuViewFragment.getSelectedY()] = number;
             if(!solver.isErrorFree(values)){
                 errors = solver.getErrors();
+                disableSolveButton();
             } else {
                 errors = new int[9][9];
+                enableSolveButton();
             }
 
             refreshSudokuView();
@@ -159,6 +164,7 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
         errors = new int[9][9];
         enteredValues = new int[9][9];
         solver.clearData();
+        enableSolveButton();
         System.out.println("cleared all 3 arrays");
         System.out.println("value at errors 0,0 = "+errors[0][0]);
         refreshSudokuView();
@@ -166,5 +172,13 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
 
     private void refreshSudokuView() {
         sudokuViewFragment.setValues(values, errors, enteredValues);
+    }
+
+    private void enableSolveButton(){
+        numpadFragment.enableSolveButton();
+    }
+
+    private void disableSolveButton(){
+        numpadFragment.disableSolveButton();
     }
 }

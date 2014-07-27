@@ -78,4 +78,12 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         delegate.buttonClicked(view.getId());
     }
+
+    public void enableSolveButton(){
+        btnSolve.setEnabled(true);
+    }
+
+    public void disableSolveButton(){
+        btnSolve.setEnabled(false);
+    }
 }
