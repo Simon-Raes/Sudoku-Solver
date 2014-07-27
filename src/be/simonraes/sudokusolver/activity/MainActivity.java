@@ -9,8 +9,6 @@ import be.simonraes.sudokusolver.fragment.NumpadFragment;
 import be.simonraes.sudokusolver.fragment.SudokuViewFragment;
 import be.simonraes.sudokusolver.model.Solver;
 
-import java.util.Random;
-
 public class MainActivity extends Activity implements NumpadFragment.numPadDelegate {
 
     int[][] solvedSudoku = new int[9][9];  // Fully solved Sudoku with all 81 digits.
@@ -18,7 +16,9 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
     int[][] errors = new int[9][9];        // All input errors on their location.
     int[][] enteredValues = new int[9][9]; // All values entered by the user on their location.
 
+
     private SudokuViewFragment sudokuViewFragment;
+    private Solver solver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,8 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
             errors = (int[][]) savedInstanceState.getSerializable("errors");
             enteredValues = (int[][]) savedInstanceState.getSerializable("enteredValues");
         }
+
+        solver = new Solver();
 
         sudokuViewFragment = (SudokuViewFragment) getFragmentManager().findFragmentById(R.id.sudokuFragment);
         sudokuViewFragment.setValues(values, errors, enteredValues);
@@ -56,7 +58,7 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
                 solve();
                 break;
             case R.id.btnHint:
-                reRandom();
+                hint();
                 break;
             case R.id.btnDelete:
                 setNumberForSelectedField(0);
@@ -95,10 +97,16 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
     }
 
     public void solve() {
-        Solver solver = new Solver();
+
         try {
             //todo: put solver in asynctask so the UI thread doesn't lock up with hard/impossible inputs
-            solver.solveSudoku(values);
+            //stop searching after x seconds?
+
+            //todo: display errors realtime
+
+            //todo: option to solve step by step
+            //fix the row colum switching first then
+            values = solver.solveSudoku(values);
             clearErrors();
             refreshSudokuView();
         } catch (NoSolutionException e) {
@@ -119,18 +127,24 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
         if (selectedX >= 0 && selectedY >= 0) {
             values[sudokuViewFragment.getSelectedX()][sudokuViewFragment.getSelectedY()] = number;
             enteredValues[sudokuViewFragment.getSelectedX()][sudokuViewFragment.getSelectedY()] = number;
+            if(!solver.isErrorFree(values)){
+                errors = solver.getErrors();
+            } else {
+                errors = new int[9][9];
+            }
+
             refreshSudokuView();
         } else {
             //todo: some form of feedback to let user know he needs to select a grid square
+            Toast.makeText(this, "Select a cell.",Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void reRandom() {
-        Solver solver = new Solver();
+    private void hint() {
+
         try {
-            System.out.println("getting a ghint");
-            values = solver.hintSudoku(values);
+            values = solver.hintSudoku(values, sudokuViewFragment.getSelectedX(), sudokuViewFragment.getSelectedY());
             clearErrors();
             refreshSudokuView();
         } catch (NoSolutionException e) {
@@ -144,6 +158,9 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
         values = new int[9][9];
         errors = new int[9][9];
         enteredValues = new int[9][9];
+        solver.clearData();
+        System.out.println("cleared all 3 arrays");
+        System.out.println("value at errors 0,0 = "+errors[0][0]);
         refreshSudokuView();
     }
 

@@ -21,7 +21,7 @@ public class Solver {
     public int[][] solveSudoku(int[][] model) throws NoSolutionException {
         this.model = model;
 
-        if (isErrorFree()) {
+        if (isErrorFree(model)) {
             try {
                 solve(0, 0);
             } catch (SolutionFoundException e) {
@@ -37,12 +37,12 @@ public class Solver {
     /**
      * Returns the values with 1 extra field revealed.
      */
-    public int[][] hintSudoku(int[][] model) throws NoSolutionException {
+    public int[][] hintSudoku(int[][] model, int selectedX, int selectedY) throws NoSolutionException {
         this.model = model;
 
         ArrayList<GridLocation> openSpaces = new ArrayList<GridLocation>();
 
-        if (isErrorFree()) {
+        if (isErrorFree(model)) {
             try {
                 hintModel = new int[model.length][model.length];
 
@@ -66,10 +66,16 @@ public class Solver {
 
             } catch (SolutionFoundException e) {
 
-                // Reveal 1 random grid cell.
-                Random random = new Random();
-                GridLocation hintLocation = openSpaces.get(random.nextInt(openSpaces.size()));
-                hintModel[hintLocation.getX()][hintLocation.getY()] = model[hintLocation.getX()][hintLocation.getY()];
+                if(selectedX>=0 && selectedY>=0){
+                    // Put the hint at the selected location.
+                    hintModel[selectedX][selectedY] = model[selectedX][selectedY];
+                } else {
+                    // No location selected, reveal a random cell.
+                    Random random = new Random();
+                    GridLocation hintLocation = openSpaces.get(random.nextInt(openSpaces.size()));
+                    hintModel[hintLocation.getX()][hintLocation.getY()] = model[hintLocation.getX()][hintLocation.getY()];
+                }
+
             }
         } else {
             throw new NoSolutionException();
@@ -78,11 +84,18 @@ public class Solver {
         return hintModel;
     }
 
-    private boolean isErrorFree() {
+    public boolean isErrorFree(int[][] model) {
+        if(this.model == null){
+            this.model = model;
+        }
+
+        errors = new int[9][9];
+
         boolean errorFree = true;
         for (int i = 0; i < model.length; i++) {
             for (int j = 0; j < model.length; j++) {
                 if (model[i][j] != 0) {
+                    System.out.println("check for number "+model[i][j]);
                     // Make sure all 3 checks are executed so all errors are found.
                     boolean rowHasErrors = rowContainsDuplicates(i, j, model[i][j]);
                     boolean colHasErrors = colContainsDuplicates(i, j, model[i][j]);
@@ -164,6 +177,7 @@ public class Solver {
         int counter = 0;
         for (int col = 0; col < model.length; col++) {
             if (col != column) {
+                System.out.println("comparing "+model[row][col]+" to "+num);
                 if (model[row][col] == num) {
                     errors[row][col] = num;
                     counter++;
@@ -218,8 +232,15 @@ public class Solver {
             solve(row + 1, 0);
     }
 
+
     public int[][] getErrors() {
         return errors;
+    }
+
+    public void clearData(){
+        model = null;
+        errors = new int[9][9];
+        hintModel = new int[9][9];
     }
 }
 

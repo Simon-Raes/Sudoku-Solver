@@ -25,7 +25,7 @@ public class SudokuView extends View {
     private int selectionY = -1;       // Y index of selection (0-8)
 
     private int[][] values;
-    private int[][] errors = new int[9][9];
+    private int[][] errors;
     private int[][] enteredValues;
 
 
@@ -243,6 +243,7 @@ public class SudokuView extends View {
         this.values = values;
         this.errors = errors;
         this.enteredValues = enteredValues;
+//        System.out.println("view received values, errors at 0,0 = "+errors[0][0]);
         invalidate();
     }
 
