@@ -21,6 +21,7 @@ public class Solver {
     public int[][] solveSudoku(int[][] model) throws NoSolutionException {
         this.model = model;
 
+        System.out.println("starting solve, value at 0,1 = "+model[0][1]);
         if (isErrorFree(model)) {
             try {
                 solve(0, 0);

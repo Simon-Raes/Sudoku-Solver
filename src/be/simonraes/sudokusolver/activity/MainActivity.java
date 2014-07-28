@@ -172,6 +172,7 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
     }
 
     private void refreshSudokuView() {
+        System.out.println("refreshing, value at 0,1 is "+values[0][1]);
         sudokuViewFragment.setValues(values, errors, enteredValues);
     }
 

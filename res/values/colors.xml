@@ -26,5 +26,6 @@
     <color name="DeepPurple">#673ab7</color>
 
     <color name="VeryLightGrey">#f5f5f5</color>
+    <color name="LightGrey">#eeeeee</color>
     <color name="TextGrey">#212121</color>
 </resources>

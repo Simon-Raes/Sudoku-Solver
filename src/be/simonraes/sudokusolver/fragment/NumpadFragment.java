@@ -49,18 +49,13 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        System.out.println("reading numpad savedstate");
-
         if (savedInstanceState != null) {
-            System.out.println("btnsolveenabled "+btnSolveEnabled);
             btnSolveEnabled = savedInstanceState.getBoolean("btnSolveEnabled");
             btnHintEnabled = savedInstanceState.getBoolean("btnHintEnabled");
         } else {
             btnSolveEnabled = true;
             btnHintEnabled = true;
         }
-
-
     }
 
     @Override
@@ -112,13 +107,7 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
         if(btnSolve!=null){
             btnSolve.setEnabled(enabled);
         }
-
     }
-
-//    public void disableSolveButton() {
-//        btnSolveEnabled = false;
-//        btnSolve.setEnabled(false);
-//    }
 
     public void enableHintButton(boolean enabled) {
         btnHintEnabled = enabled;
@@ -127,11 +116,4 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
 
         }
     }
-
-//    public void disableHintButton() {
-//        btnHintEnabled = false;
-//        btnHint.setEnabled(false);
-//    }
-
-
 }

@@ -3,7 +3,6 @@ package be.simonraes.sudokusolver.ui;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -21,8 +20,8 @@ public class SudokuView extends View {
 
     private float width;               // Width of one tile
     private float height;              // Height of one tile
-    private int selectionX = -1;       // X index of selection (0-8)
-    private int selectionY = -1;       // Y index of selection (0-8)
+    private int selectionRow = -1;       // X index of selection (0-8)
+    private int selectionCol = -1;       // Y index of selection (0-8)
 
     private int[][] values;
     private int[][] errors;
@@ -47,8 +46,8 @@ public class SudokuView extends View {
     public Parcelable onSaveInstanceState() {
         Bundle bundle = new Bundle();
         bundle.putParcelable("instanceState", super.onSaveInstanceState());
-        bundle.putInt("selectionX", selectionX);
-        bundle.putInt("selectionY", selectionY);
+        bundle.putInt("selectionRow", selectionRow);
+        bundle.putInt("selectionCol", selectionCol);
         return bundle;
     }
 
@@ -56,8 +55,8 @@ public class SudokuView extends View {
     public void onRestoreInstanceState(Parcelable state) {
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
-            selectionX = bundle.getInt("selectionX");
-            selectionY = bundle.getInt("selectionY");
+            selectionRow = bundle.getInt("selectionRow");
+            selectionCol = bundle.getInt("selectionCol");
             state = bundle.getParcelable("instanceState");
         }
         super.onRestoreInstanceState(state);
@@ -132,14 +131,14 @@ public class SudokuView extends View {
     }
 
     private void drawSelectionBox(Canvas canvas){
-        if (getSelectedX() >= 0 && getSelectedY() >= 0) {
+        if (getSelectedRow() >= 0 && getSelectedCol() >= 0) {
             Paint selectionPaint = new Paint();
             selectionPaint.setColor(getResources().getColor(R.color.DeepPurple));
-            canvas.drawRect(getSelectedX() * width + 5, getSelectedY() * height + 5, getSelectedX() * width + width - 5, getSelectedY() * height + height - 5, selectionPaint);
+            canvas.drawRect(getSelectedCol() * width + 5, getSelectedRow() * height + 5, getSelectedCol() * width + width - 5, getSelectedRow() * height + height - 5, selectionPaint);
 
             Paint fillerPaint = new Paint();
             fillerPaint.setColor(getResources().getColor(R.color.VeryLightGrey));
-            canvas.drawRect(getSelectedX() * width + 10, getSelectedY() * height + 10, getSelectedX() * width + width - 10, getSelectedY() * height + height - 10, fillerPaint);
+            canvas.drawRect(getSelectedCol() * width + 10, getSelectedRow() * height + 10, getSelectedCol() * width + width - 10, getSelectedRow() * height + height - 10, fillerPaint);
         }
     }
 
@@ -158,6 +157,7 @@ public class SudokuView extends View {
         //enteredPaint.setColor(getResources().getColor());
         enteredPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         enteredPaint.setTextSize(height * 0.75f);
+        enteredPaint.setStrokeWidth(1);
         enteredPaint.setTextScaleX(width / height);
         enteredPaint.setTextAlign(Paint.Align.CENTER);
 
@@ -186,10 +186,10 @@ public class SudokuView extends View {
                 for (int j = 0; j < 9; j++) {
 
                     // Set correct paint style.
-                    if (enteredValues[i][j] == values[i][j]) {
+                    if (enteredValues[j][i] == values[j][i]) {
                         paintForSquare = enteredPaint;
                     }
-                    if (errors != null && errors[i][j] != 0 && errors[i][j] == values[i][j]) {
+                    if (errors != null && errors[j][i] != 0 && errors[j][i] == values[j][i]) {
                         paintForSquare = errorPaint;
                     }
                     if (paintForSquare == null) {
@@ -197,10 +197,10 @@ public class SudokuView extends View {
                     }
 
                     // Set text for square.
-                    if (Integer.toString(values[i][j]).equals("0")) {
+                    if (Integer.toString(values[j][i]).equals("0")) {
                         textForSquare = "";
                     } else {
-                        textForSquare = Integer.toString(values[i][j]);
+                        textForSquare = Integer.toString(values[j][i]);
                     }
 
                     canvas.drawText(textForSquare, i * width + x, j * height + y, paintForSquare);
@@ -227,13 +227,15 @@ public class SudokuView extends View {
         int newX = Math.min(Math.max(x, 0), 8);
         int newY = Math.min(Math.max(y, 0), 8);
 
-        if (newX == selectionX && newY == selectionY) {
-            selectionX = -1;
-            selectionY = -1;
+        if (newX == selectionRow && newY == selectionCol) {
+            selectionRow = -1;
+            selectionCol = -1;
         } else {
-            selectionX = newX;
-            selectionY = newY;
+            selectionRow = newY;
+            selectionCol = newX;
         }
+
+        System.out.println(selectionRow +" "+ selectionCol);
 
         invalidate();
     }
@@ -247,12 +249,12 @@ public class SudokuView extends View {
         invalidate();
     }
 
-    public int getSelectedX() {
-        return selectionX;
+    public int getSelectedRow() {
+        return selectionRow;
     }
 
-    public int getSelectedY() {
-        return selectionY;
+    public int getSelectedCol() {
+        return selectionCol;
     }
 }
 

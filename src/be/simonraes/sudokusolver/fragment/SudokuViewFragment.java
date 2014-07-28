@@ -24,11 +24,11 @@ public class SudokuViewFragment extends Fragment {
     }
 
     public int getSelectedX() {
-        return sudokuView.getSelectedX();
+        return sudokuView.getSelectedRow();
     }
 
     public int getSelectedY() {
-        return sudokuView.getSelectedY();
+        return sudokuView.getSelectedCol();
     }
 
     public void setValues(int[][] values, int[][] errors, int[][] enteredValues) {
