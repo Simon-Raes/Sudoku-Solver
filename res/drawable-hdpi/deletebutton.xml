@@ -1,5 +1,12 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:state_enabled="false">
+        <shape>
+            <solid android:color="@color/DeleteGreyFocused"/>
+            <corners android:radius="3dp"/>
+        </shape>
+    </item>
+
     <item android:state_pressed="true">
         <shape>
             <solid android:color="@color/DeleteGreyFocused"/>

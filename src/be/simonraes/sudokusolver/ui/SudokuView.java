@@ -227,7 +227,7 @@ public class SudokuView extends View {
         int newX = Math.min(Math.max(x, 0), 8);
         int newY = Math.min(Math.max(y, 0), 8);
 
-        if (newX == selectionRow && newY == selectionCol) {
+        if (newY == selectionRow && newX == selectionCol) {
             selectionRow = -1;
             selectionCol = -1;
         } else {
@@ -235,7 +235,6 @@ public class SudokuView extends View {
             selectionCol = newX;
         }
 
-        System.out.println(selectionRow +" "+ selectionCol);
 
         invalidate();
     }

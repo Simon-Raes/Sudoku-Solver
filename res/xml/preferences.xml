@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- This file contains all options under the settings menu. -->
+    <PreferenceCategory
+            android:key="pref_key_solution"
+            android:title="Solution">
+
+        <CheckBoxPreference
+                android:key="be.simonraes.sudokusolver.preference.animatesolution"
+                android:title="Animate solution"
+                android:defaultValue="false"/>
+        <EditTextPreference
+                android:key="be.simonraes.sudokusolver.preference.steptime"
+                android:title="Time per step"
+        android:dependency="be.simonraes.sudokusolver.preference.animatesolution"
+                android:defaultValue="100"
+                android:numeric="integer"
+                android:inputType="number"
+                android:summary="In milliseconds"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>
