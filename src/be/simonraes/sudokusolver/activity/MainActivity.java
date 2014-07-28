@@ -21,9 +21,6 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
     int[][] values = new int[9][9];        // The values to be sent to the UI, can contain less than 81 digits in the case of a hint.
     int[][] errors = new int[9][9];        // All input errors on their location.
     int[][] enteredValues = new int[9][9]; // All values entered by the user on their location.
-//    int[][] valuesForVisualMode = new int[9][9];
-
-//    private boolean animatedSolveMode = false;
 
     private SudokuViewFragment sudokuViewFragment;
     private NumpadFragment numpadFragment;
@@ -77,6 +74,8 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
 
         return solver;
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -197,6 +196,10 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
         if (selectedX >= 0 && selectedY >= 0) {
             values[sudokuViewFragment.getSelectedX()][sudokuViewFragment.getSelectedY()] = number;
             enteredValues[sudokuViewFragment.getSelectedX()][sudokuViewFragment.getSelectedY()] = number;
+            if(solver == null){
+                solver = new ASyncSolver(this, this, false);
+            }
+
             if (!solver.isErrorFree(values)) {
                 errors = solver.getErrors();
                 disableSolveButtons();
@@ -214,9 +217,7 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
 
 
     private void clearBoard() {
-        System.out.println(solver);
         if (solver != null) {
-            System.out.println("cancelling solver task");
             solver.cancel(true);
         }
         values = new int[9][9];
@@ -224,8 +225,6 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
         enteredValues = new int[9][9];
         solver.clearData();
         toggleSolveMode(false);
-//        System.out.println("cleared all 3 arrays");
-//        System.out.println("value at errors 0,0 = "+errors[0][0]);
         refreshSudokuView();
     }
 
@@ -264,21 +263,17 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
 
     @Override
     public void valueAdded(ASyncSolver solver, int[][] values) {
-//        System.out.println(solver);
+
         this.solver = solver;
         System.out.println("received partial solution");
 
         this.values = values;
-        //if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("be.simonraes.sudokusolver.preference.animatesolution", false)) {
-//            final int[][] finalValues = values;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 refreshSudokuView();
-//                    sudokuViewFragment.setValues(finalValues, errors, enteredValues);
             }
         });
-        //}
     }
 
     @Override

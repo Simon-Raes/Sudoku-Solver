@@ -13,6 +13,7 @@ import be.simonraes.sudokusolver.R;
 import java.util.ArrayList;
 
 /**
+ * Fragment holding all buttons.
  * Created by Simon Raes on 26/07/2014.
  */
 public class NumpadFragment extends Fragment implements View.OnClickListener {
@@ -23,7 +24,7 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
     private ImageButton btnDelete;
     private numPadDelegate delegate;
 
-    private boolean btnSolveEnabled, btnHintEnabled, btnDeleteEnabled, btnNumbersEnabled;
+    private boolean btnSolveEnabled, btnHintEnabled, btnDeleteEnabled, btnNumbersEnabled, btnClearIsStop;
 
     public static interface numPadDelegate {
         public void buttonClicked(int id);
@@ -49,6 +50,8 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
         outState.putBoolean("btnHintEnabled", btnHintEnabled);
         outState.putBoolean("btnNumbersEnabled", btnNumbersEnabled);
         outState.putBoolean("btnDeleteEnabled", btnDeleteEnabled);
+        outState.putBoolean("btnClearIsStop", btnClearIsStop);
+
 
     }
 
@@ -56,7 +59,7 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setRetainInstance(true);
+//        setRetainInstance(true);
 
 
         numberButtons = new ArrayList<Button>();
@@ -66,12 +69,13 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
             btnHintEnabled = savedInstanceState.getBoolean("btnHintEnabled");
             btnNumbersEnabled = savedInstanceState.getBoolean("btnNumbersEnabled");
             btnDeleteEnabled = savedInstanceState.getBoolean("btnDeleteEnabled");
-
+            btnClearIsStop = savedInstanceState.getBoolean("btnClearIsStop");
         } else {
             btnSolveEnabled = true;
             btnHintEnabled = true;
             btnNumbersEnabled = true;
             btnDeleteEnabled = true;
+            btnClearIsStop = false;
         }
     }
 
@@ -79,10 +83,13 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.numpad_layout, null);
         initButtons(view);
+
         enableSolveButton(btnSolveEnabled);
         enableHintButton(btnHintEnabled);
         enableDeleteButton(btnDeleteEnabled);
         enableNumPadButtons(btnNumbersEnabled);
+        setClearButtonText(btnClearIsStop);
+
         return view;
     }
 
@@ -142,7 +149,6 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
 
         if (btnHint != null) {
             btnHint.setEnabled(enabled);
-
         }
     }
 
@@ -160,20 +166,26 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
         for (Button b : numberButtons) {
             if (b != null) {
                 b.setEnabled(enabled);
-
             }
         }
     }
 
-    public void toggleSolveMode(boolean solveMode){
-        if(solveMode){
-            btnClear.setText("Stop");
+    private void setClearButtonText(boolean btnClearIsStop) {
+        this.btnClearIsStop = btnClearIsStop;
+        if (btnClear != null) {
+            btnClear.setText(btnClearIsStop ? "Stop" : "Clear");
+        }
+    }
+
+    public void toggleSolveMode(boolean solveMode) {
+        if (solveMode) {
+            setClearButtonText(true);
             enableDeleteButton(false);
             enableHintButton(false);
             enableSolveButton(false);
             enableNumPadButtons(false);
         } else {
-            btnClear.setText("Clear");
+            setClearButtonText(false);
             enableDeleteButton(true);
             enableHintButton(true);
             enableSolveButton(true);

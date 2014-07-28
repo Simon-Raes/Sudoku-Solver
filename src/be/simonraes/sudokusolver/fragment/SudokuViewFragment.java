@@ -20,7 +20,7 @@ public class SudokuViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sudokuview_layout, null);
 
-        setRetainInstance(true);
+        //setRetainInstance(true);
 
 
         sudokuView = (SudokuView) view.findViewById(R.id.sudokuView);

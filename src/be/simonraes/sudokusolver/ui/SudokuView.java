@@ -244,7 +244,6 @@ public class SudokuView extends View {
         this.values = values;
         this.errors = errors;
         this.enteredValues = enteredValues;
-//        System.out.println("view received values, errors at 0,0 = "+errors[0][0]);
         invalidate();
     }
 
