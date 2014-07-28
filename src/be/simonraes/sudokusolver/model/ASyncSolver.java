@@ -119,7 +119,8 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
 
                         if (animateSolution) {
                             //  alert the listener a new value has been added
-                            delegate.valueAdded(this, model);
+//                            delegate.valueAdded(this, model);
+                            publishProgress(model);
 
                             // Wait x ms before searching for the next value.
                             try {

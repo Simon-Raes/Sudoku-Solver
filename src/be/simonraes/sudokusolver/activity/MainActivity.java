@@ -13,6 +13,7 @@ import be.simonraes.sudokusolver.exception.NoSolutionException;
 import be.simonraes.sudokusolver.fragment.NumpadFragment;
 import be.simonraes.sudokusolver.fragment.SudokuViewFragment;
 import be.simonraes.sudokusolver.model.ASyncSolver;
+import be.simonraes.sudokusolver.util.AppPreferences;
 
 public class MainActivity extends Activity implements NumpadFragment.numPadDelegate, ASyncSolver.solverListener {
 
@@ -40,6 +41,14 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
             enteredValues = (int[][]) savedInstanceState.getSerializable("enteredValues");
         }
 
+        solver = (ASyncSolver) getLastNonConfigurationInstance();
+
+        if (solver != null) {
+            System.out.println("solver isn't null, reattaching");
+            solver.attach(this);
+        } else {
+            System.out.println("solver was null");
+        }
         //solver = new ASyncSolver(this, this, false);
 
         sudokuViewFragment = (SudokuViewFragment) getFragmentManager().findFragmentById(R.id.sudokuFragment);
@@ -57,9 +66,15 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
         outState.putSerializable("enteredValues", enteredValues);
     }
 
+    // Todo: this should be replaced with a fragment without view that stores the references to the ASyncTask.
+    // //Fragment controls the ASyncTask and implements setRetainInstance(true) to save state during reorientations.
     @Override
     public Object onRetainNonConfigurationInstance() {
-        solver.detach();
+        if(solver!=null){
+            System.out.println("soolver not null, saving");
+            solver.detach();
+        }
+
         return solver;
     }
 
@@ -240,10 +255,11 @@ public class MainActivity extends Activity implements NumpadFragment.numPadDeleg
 
 
     private void toggleSolveMode(boolean solveMode) {
-        numpadFragment.toggleSolveMode(solveMode);
-
+        // Disabling the numpad is only necessary when animating the solution.
+        if(AppPreferences.solutionShouldAnimate(this)){
+            numpadFragment.toggleSolveMode(solveMode);
+        }
     }
-
 
 
     @Override
