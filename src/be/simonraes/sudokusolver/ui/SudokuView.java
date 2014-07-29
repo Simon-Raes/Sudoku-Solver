@@ -132,13 +132,17 @@ public class SudokuView extends View {
 
     private void drawSelectionBox(Canvas canvas){
         if (getSelectedRow() >= 0 && getSelectedCol() >= 0) {
-            Paint selectionPaint = new Paint();
-            selectionPaint.setColor(getResources().getColor(R.color.DeepPurple));
-            canvas.drawRect(getSelectedCol() * width + 5, getSelectedRow() * height + 5, getSelectedCol() * width + width - 5, getSelectedRow() * height + height - 5, selectionPaint);
 
-            Paint fillerPaint = new Paint();
+            // Outer circle
+            Paint selectionPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            selectionPaint.setColor(getResources().getColor(R.color.HintGreen));
+            canvas.drawCircle(getSelectedCol() * width +width/2, getSelectedRow() * height +height/2, width/2-5, selectionPaint);
+
+            // Inner circle
+            Paint fillerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             fillerPaint.setColor(getResources().getColor(R.color.VeryLightGrey));
-            canvas.drawRect(getSelectedCol() * width + 10, getSelectedRow() * height + 10, getSelectedCol() * width + width - 10, getSelectedRow() * height + height - 10, fillerPaint);
+            canvas.drawCircle(getSelectedCol() * width +width/2, getSelectedRow() * height +height/2, width/2-10, fillerPaint);
+
         }
     }
 
@@ -154,7 +158,6 @@ public class SudokuView extends View {
 
         // Correct input that was entered by the user.
         Paint enteredPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        //enteredPaint.setColor(getResources().getColor());
         enteredPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         enteredPaint.setTextSize(height * 0.75f);
         enteredPaint.setStrokeWidth(1);

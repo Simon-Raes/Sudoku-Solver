@@ -251,7 +251,7 @@
 //    }
 //
 //
-//    public int[][] getErrors() {
+//    public int[][] getErrorValues() {
 //        return errors;
 //    }
 //

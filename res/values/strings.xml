@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sudoku Solver</string>
+    <string name="app_name">Sudoku Helper</string>
     <string name="btnClear">Clear</string>
     <string name="btnHint">Hint</string>
     <string name="btnSolve">Solve</string>
