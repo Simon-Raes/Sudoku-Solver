@@ -16,14 +16,14 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
 
 
     private int[][] values;
-//    private int[][] hintValues;
     private int[][] errorValues = new int[9][9];
 
     private Context context;
     private solverListener delegate;
-    private boolean animateSolution, solutionFound;
+    private boolean animateSolution, solutionFound, delegateAlerted;
 
     private long startTime;
+
 
     public interface solverListener {
         public void valueAdded(ASyncSolver solver, int[][] values);
@@ -36,8 +36,8 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
         this.context = context;
         this.delegate = delegate;
         this.animateSolution = animateSolution;
-        System.out.println("new solver, should animate? "+animateSolution);
         solutionFound = false;
+        delegateAlerted = false;
     }
 
 
@@ -51,7 +51,6 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
         startTime = System.currentTimeMillis();
         solutionFound = false;
 
-//        System.out.println("starting solve, value at 0,1 = "+values[0][1]);
         if (isErrorFree(values)) {
             try {
                 solve(0, 0);
@@ -112,18 +111,17 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
 
     private void solve(int row, int col) throws SolutionFoundException {
 
-
-        if(!animateSolution && startTime + 500 < System.currentTimeMillis() && !solutionFound){
+        if(!animateSolution && startTime + 500 < System.currentTimeMillis() && !solutionFound && !delegateAlerted){
             delegate.sudokuHasNoSolution(this);
+            delegateAlerted = true;
         }
 
         if (!isCancelled()) {
 
-//            if (!animateSolution && startTime + 500 > System.currentTimeMillis()) {
-//                cancel(true);
-//            }
+
 
             if (row > 8) {
+
                 // Exception to break out of code if a solution is found.
                 solutionFound = true;
                 throw new SolutionFoundException();
@@ -131,19 +129,19 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
 
             // If the cell is not empty, continue with the next cell
             if (values[row][col] != 0) {
-                System.out.println("it ain't zero");
                 next(row, col);
             }else {
                 // Find a valid number for the empty cell
                 for (int num = 1; num < 10; num++) {
                     if (checkRow(row, num) && checkCol(col, num) && checkBox(row, col, num)) {
+
+
+
                         values[row][col] = num;
 
-                        System.out.println("pre publish");
                         if (animateSolution) {
                             //  alert the listener a new value has been added
 //                            delegate.valueAdded(this, values);
-                            System.out.println("publishing progress");
                             publishProgress(values);
 
                             // Wait x ms before searching for the next value.
@@ -169,57 +167,6 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
     }
 
 
-    /**
-     * Returns the values with 1 extra field revealed.
-     */
-//    public int[][] hintSudoku(int[][] model, int selectedX, int selectedY) throws NoSolutionException {
-//        this.values = model;
-//
-//        ArrayList<GridLocation> openSpaces = new ArrayList<GridLocation>();
-//        startTime = System.currentTimeMillis();
-//        solutionFound = false;
-//
-//        if (isErrorFree(model)) {
-//            try {
-//                hintValues = new int[model.length][model.length];
-//
-//                // Copy all values values to the new hintarray
-//                for (int i = 0; i < hintValues.length; i++) {
-//                    for (int j = 0; j < hintValues.length; j++) {
-//                        hintValues[i][j] = model[i][j];
-//                        if (model[i][j] == 0) {
-//                            // Add the found open cell to the list.
-//                            openSpaces.add(new GridLocation(i, j));
-//                        }
-//                    }
-//                }
-//
-//                // Only search for hint if there is an empty cell available.
-//                if (openSpaces.size() > 0) {
-//                    // Put the full solution in the values array.
-//                    solve(0, 0);
-//                }
-//
-//
-//            } catch (SolutionFoundException e) {
-//
-//                if (selectedX >= 0 && selectedY >= 0 && hintValues[selectedX][selectedY] <= 0) {
-//                    // Put the hint at the selected location.
-//                    hintValues[selectedX][selectedY] = model[selectedX][selectedY];
-//                } else {
-//                    // No location selected, reveal a random cell.
-//                    Random random = new Random();
-//                    GridLocation hintLocation = openSpaces.get(random.nextInt(openSpaces.size()));
-//                    hintValues[hintLocation.getX()][hintLocation.getY()] = model[hintLocation.getX()][hintLocation.getY()];
-//                }
-//
-//            }
-//        } else {
-//            throw new NoSolutionException();
-//        }
-//
-//        return hintValues;
-//    }
 
     /**
      * Checks if num is an acceptable value for the given row
@@ -326,7 +273,6 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
     public void clearData() {
         values = null;
         errorValues = new int[9][9];
-//        hintValues = new int[9][9];
     }
 
     public void detach() {

@@ -47,102 +47,23 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.58536583" vertical-offset="6001" max-vertical-offset="6715">
-              <caret line="379" column="28" selection-start-line="379" selection-start-column="28" selection-end-line="379" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.35703918" vertical-offset="400" max-vertical-offset="7004">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#8107#8108#0" expanded="true" />
-                <element signature="e#8182#8183#0" expanded="true" />
-                <element signature="e#8957#9088#0" expanded="true" />
-                <element signature="e#9077#9078#0" expanded="true" />
-                <element signature="e#9261#9688#0" expanded="true" />
-                <element signature="e#9677#9678#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <file leaf-file-name="DataFragment.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/DataFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
-              <caret line="2" column="41" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="numpad_layout.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/numpad_layout.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.148149" vertical-offset="50" max-vertical-offset="935">
-              <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="numpad_layout.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout-land/numpad_layout.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.148148" vertical-offset="0" max-vertical-offset="1054">
-              <caret line="5" column="31" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NumpadFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/NumpadFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="3213">
-              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ASyncSolver.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/model/ASyncSolver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5133" max-vertical-offset="5746">
-              <caret line="329" column="5" selection-start-line="329" selection-start-column="5" selection-end-line="329" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="867">
+              <caret line="7" column="107" selection-start-line="7" selection-start-column="107" selection-end-line="7" selection-end-column="107" />
               <folding>
-                <element signature="e#2271#2272#0" expanded="true" />
-                <element signature="e#2298#2299#0" expanded="true" />
-                <element signature="e#10091#10092#0" expanded="true" />
-                <element signature="e#10125#10126#0" expanded="true" />
-                <element signature="e#10288#10289#0" expanded="true" />
-                <element signature="e#10319#10320#0" expanded="true" />
-                <element signature="e#10370#10371#0" expanded="true" />
-                <element signature="e#10410#10411#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SudokuViewFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/SudokuViewFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
-              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SudokuView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/ui/SudokuView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2470" max-vertical-offset="4267">
-              <caret line="160" column="0" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -180,7 +101,6 @@
         <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/exception/CalculationTimeOutException.java" />
         <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/model/SolverHandler.java" />
         <option value="$PROJECT_DIR$/res/drawable-hdpi/hintbutton.xml" />
-        <option value="$PROJECT_DIR$/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/res/drawable-hdpi/topleftbutton.xml" />
         <option value="$PROJECT_DIR$/res/drawable-hdpi/toprightbutton.xml" />
         <option value="$PROJECT_DIR$/res/drawable-hdpi/centerbutton.xml" />
@@ -192,17 +112,19 @@
         <option value="$PROJECT_DIR$/res/xml/preferences.xml" />
         <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/SettingsFragment.java" />
         <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/util/AppPreferences.java" />
-        <option value="$PROJECT_DIR$/res/drawable-hdpi/deletebutton.xml" />
-        <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/SudokuViewFragment.java" />
-        <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/NumpadFragment.java" />
-        <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/ASyncFragment.java" />
         <option value="$PROJECT_DIR$/res/layout/numpad_layout.xml" />
         <option value="$PROJECT_DIR$/res/layout-land/numpad_layout.xml" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/ui/SudokuView.java" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/ASyncFragment.java" />
+        <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/ui/SudokuView.java" />
         <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/model/ASyncSolver.java" />
+        <option value="$PROJECT_DIR$/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/res/drawable-hdpi/deletebutton.xml" />
+        <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/NumpadFragment.java" />
+        <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/SudokuViewFragment.java" />
         <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/DataFragment.java" />
       </list>
     </option>
   </component>
@@ -239,6 +161,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -511,9 +434,22 @@
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sudoku Solver" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sudoku-Solver" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -539,11 +475,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Simon Raes\Documents\GitHub\Sudoku-Solver\libs" />
       <recent name="C:\Users\Simon Raes\Documents\GitHub\Sudoku-Solver\res\drawable-hdpi" />
       <recent name="C:\Users\Simon Raes\Documents\GitHub\Sudoku-Solver\res\menu" />
       <recent name="C:\Users\Simon Raes\Documents\GitHub\Sudoku-Solver\res\xml" />
       <recent name="C:\Users\Simon Raes\Documents\GitHub\Sudoku-Solver\res\layout-land" />
-      <recent name="C:\Users\Simon Raes\IdeaProjects\Sudoku Solver\res\layout-land" />
     </key>
   </component>
   <component name="RunManager" selected="Android Application.Sudoku Solver">
@@ -582,6 +518,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -607,19 +556,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -750,10 +686,8 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1792049" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24954128" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -761,7 +695,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16474654" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17396313" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17626728" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Metrics" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -773,6 +707,8 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1792049" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21774194" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -805,6 +741,14 @@
     <option name="showOnlyWarnings" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/ui/SudokuView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3111" max-vertical-offset="4556">
+          <caret line="183" column="29" selection-start-line="183" selection-start-column="29" selection-end-line="183" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/SudokuViewFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="646" max-vertical-offset="799">
@@ -855,12 +799,6 @@
           <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8107#8108#0" expanded="true" />
-            <element signature="e#8182#8183#0" expanded="true" />
-            <element signature="e#8957#9088#0" expanded="true" />
-            <element signature="e#9077#9078#0" expanded="true" />
-            <element signature="e#9261#9688#0" expanded="true" />
-            <element signature="e#9677#9678#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1083,14 +1021,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/model/Solver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0388889" vertical-offset="1020" max-vertical-offset="4590">
-          <caret line="93" column="7" selection-start-line="45" selection-start-column="5" selection-end-line="93" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/xml/preferences.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476">
@@ -1099,34 +1029,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/SettingsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="786" max-vertical-offset="1377">
-          <caret line="66" column="52" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/util/AppPreferences.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="58" max-vertical-offset="629">
           <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-          <caret line="28" column="35" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/deletebutton.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
-          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1160,32 +1066,15 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/SudokuViewFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/app_logo2.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/ui/SudokuView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2470" max-vertical-offset="4267">
-          <caret line="160" column="0" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Android SDK/sdk/platforms/android-19/android.jar!/java/util/concurrent/FutureTask.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.75829387" vertical-offset="173" max-vertical-offset="595">
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1205,51 +1094,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/ASyncFragment.java">
+    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/ui/SudokuView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25757575" vertical-offset="0" max-vertical-offset="594">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/NumpadFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3213">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2261" max-vertical-offset="4284">
+          <caret line="183" column="29" selection-start-line="183" selection-start-column="29" selection-end-line="183" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/model/ASyncSolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5133" max-vertical-offset="5746">
-          <caret line="329" column="5" selection-start-line="329" selection-start-column="5" selection-end-line="329" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4692">
+          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
+          <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/deletebutton.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+          <caret line="4" column="48" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/NumpadFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3383">
+          <caret line="4" column="33" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/SettingsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4" max-vertical-offset="1377">
+          <caret line="66" column="52" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
           <folding>
-            <element signature="e#2271#2272#0" expanded="true" />
-            <element signature="e#2298#2299#0" expanded="true" />
-            <element signature="e#10091#10092#0" expanded="true" />
-            <element signature="e#10125#10126#0" expanded="true" />
-            <element signature="e#10288#10289#0" expanded="true" />
-            <element signature="e#10319#10320#0" expanded="true" />
-            <element signature="e#10370#10371#0" expanded="true" />
-            <element signature="e#10410#10411#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/SudokuViewFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/fragment/DataFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="867">
+          <caret line="7" column="107" selection-start-line="7" selection-start-column="107" selection-end-line="7" selection-end-column="107" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/be/simonraes/sudokusolver/activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58536583" vertical-offset="6001" max-vertical-offset="6715">
-          <caret line="379" column="28" selection-start-line="379" selection-start-column="28" selection-end-line="379" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.35703918" vertical-offset="400" max-vertical-offset="7004">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8107#8108#0" expanded="true" />
-            <element signature="e#8182#8183#0" expanded="true" />
-            <element signature="e#8957#9088#0" expanded="true" />
-            <element signature="e#9077#9078#0" expanded="true" />
-            <element signature="e#9261#9688#0" expanded="true" />
-            <element signature="e#9677#9678#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -2,7 +2,7 @@
 
     <item android:state_enabled="false">
         <shape>
-            <solid android:color="@color/DeleteGreyFocused"/>
+            <solid android:color="@color/MidGrey"/>
             <corners android:radius="3dp"/>
         </shape>
     </item>

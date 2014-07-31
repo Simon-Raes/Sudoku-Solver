@@ -153,6 +153,7 @@ public class SudokuView extends View {
         textPaint.setColor(getResources().getColor(R.color.SolveBlue));
         textPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         textPaint.setTextSize(height * 0.75f);
+        textPaint.setStrokeWidth(1);
         textPaint.setTextScaleX(width / height);
         textPaint.setTextAlign(Paint.Align.CENTER);
 
