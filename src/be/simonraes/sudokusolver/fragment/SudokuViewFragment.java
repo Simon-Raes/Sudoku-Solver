@@ -1,5 +1,6 @@
 package be.simonraes.sudokusolver.fragment;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,13 +16,17 @@ public class SudokuViewFragment extends Fragment {
 
     private SudokuView sudokuView;
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        System.out.println("sudokufragment attach");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        System.out.println("sudokufragment oncreateview");
         View view = inflater.inflate(R.layout.sudokuview_layout, null);
-
-        //setRetainInstance(true);
-
 
         sudokuView = (SudokuView) view.findViewById(R.id.sudokuView);
         return view;

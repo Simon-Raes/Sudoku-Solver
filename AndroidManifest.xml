@@ -3,9 +3,10 @@
           package="be.simonraes.sudokusolver"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="14"/>
+    <uses-sdk android:minSdkVersion="7"
+            android:targetSdkVersion="19"/>
     <application android:label="@string/app_name" android:icon="@drawable/app_logo2"
-            android:theme="@android:style/Theme.Holo.Light">
+            android:theme="@style/Theme.MyTheme">
         <activity android:name=".activity.MainActivity"
                   android:label="@string/app_name">
             <intent-filter>

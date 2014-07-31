@@ -26,9 +26,9 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
 
 
     public interface solverListener {
-        public void valueAdded(ASyncSolver solver, int[][] values);
-        public void sudokuHasNoSolution(ASyncSolver solver);
-        public void sudokuSolved(ASyncSolver solver, int[][] values);
+        public void valueAdded(int[][] values);
+        public void sudokuHasNoSolution();
+        public void sudokuSolved(int[][] values);
     }
 
 
@@ -68,14 +68,14 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
     protected void onProgressUpdate(int[][]... values) {
         super.onProgressUpdate(values);
         if (delegate != null) {
-            delegate.valueAdded(this, values[0]);
+            delegate.valueAdded(values[0]);
         }
     }
 
     @Override
     protected void onPostExecute(int[][] ints) {
         super.onPostExecute(ints);
-        delegate.sudokuSolved(this, ints);
+        delegate.sudokuSolved(ints);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
     private void solve(int row, int col) throws SolutionFoundException {
 
         if(!animateSolution && startTime + 500 < System.currentTimeMillis() && !solutionFound && !delegateAlerted){
-            delegate.sudokuHasNoSolution(this);
+            delegate.sudokuHasNoSolution();
             delegateAlerted = true;
         }
 
@@ -275,11 +275,4 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
         errorValues = new int[9][9];
     }
 
-    public void detach() {
-        delegate = null;
-    }
-
-    public void attach(solverListener delegate) {
-        this.delegate = delegate;
-    }
 }
