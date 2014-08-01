@@ -2,18 +2,15 @@ package be.simonraes.sudokusolver.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import be.simonraes.sudokusolver.exception.NoSolutionException;
 import be.simonraes.sudokusolver.exception.SolutionFoundException;
 import be.simonraes.sudokusolver.util.AppPreferences;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Simon Raes on 28/07/2014.
  */
 public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
 
+    private final int MAX_DURATION = 250;
 
     private int[][] values;
     private int[][] errorValues = new int[9][9];
@@ -27,7 +24,9 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
 
     public interface solverListener {
         public void valueAdded(int[][] values);
+
         public void sudokuHasNoSolution();
+
         public void sudokuSolved(int[][] values);
     }
 
@@ -43,8 +42,6 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
 
     @Override
     protected int[][] doInBackground(int[][]... ints) {
-//        this.values = values;
-//        this.input = values;
 
         this.values = ints[0];
 
@@ -57,8 +54,6 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
             } catch (SolutionFoundException e) {
 
             }
-        } else {
-            //throw new NoSolutionException();
         }
 
         return values;
@@ -82,7 +77,6 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
     protected void onCancelled() {
         clearData();
     }
-
 
 
     public boolean isErrorFree(int[][] model) {
@@ -111,16 +105,14 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
 
     private void solve(int row, int col) throws SolutionFoundException {
 
-        if(!animateSolution && startTime + 500 < System.currentTimeMillis() && !solutionFound && !delegateAlerted){
+        if (!animateSolution && startTime + MAX_DURATION < System.currentTimeMillis() && !solutionFound && !delegateAlerted) {
             delegate.sudokuHasNoSolution();
             delegateAlerted = true;
         }
 
         if (!isCancelled()) {
 
-
-
-            if (row > 8) {
+            if (row > values.length - 1) {
 
                 // Exception to break out of code if a solution is found.
                 solutionFound = true;
@@ -130,11 +122,10 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
             // If the cell is not empty, continue with the next cell
             if (values[row][col] != 0) {
                 next(row, col);
-            }else {
+            } else {
                 // Find a valid number for the empty cell
-                for (int num = 1; num < 10; num++) {
+                for (int num = 1; num < values.length + 1; num++) {
                     if (checkRow(row, num) && checkCol(col, num) && checkBox(row, col, num)) {
-
 
 
                         values[row][col] = num;
@@ -167,12 +158,11 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
     }
 
 
-
     /**
      * Checks if num is an acceptable value for the given row
      */
     protected boolean checkRow(int row, int num) {
-        for (int col = 0; col < 9; col++) {
+        for (int col = 0; col < values.length; col++) {
             if (values[row][col] == num) {
                 return false;
             }
@@ -184,7 +174,7 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
      * Checks if num is an acceptable value for the given column
      */
     protected boolean checkCol(int col, int num) {
-        for (int row = 0; row < 9; row++)
+        for (int row = 0; row < values.length; row++)
             if (values[row][col] == num)
                 return false;
 
@@ -210,7 +200,6 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
         int counter = 0;
         for (int col = 0; col < values.length; col++) {
             if (col != column) {
-//                System.out.println("comparing " + values[row][col] + " to " + num);
                 if (values[row][col] == num) {
                     errorValues[row][col] = num;
                     counter++;
@@ -224,7 +213,6 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
         int counter = 0;
         for (int row = 0; row < values.length; row++) {
             if (row != roww) {
-
                 if (values[row][col] == num) {
                     errorValues[row][col] = num;
                     counter++;
@@ -259,7 +247,7 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
      * Calls solve for the next cell
      */
     public void next(int row, int col) throws SolutionFoundException {
-        if (col < 8)
+        if (col < values.length - 1)
             solve(row, col + 1);
         else
             solve(row + 1, 0);

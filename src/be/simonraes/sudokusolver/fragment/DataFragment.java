@@ -25,15 +25,16 @@ import java.util.Random;
 public class DataFragment extends Fragment implements ASyncSolver.solverListener {
 
     int[][] originalInputValues = new int[9][9];  // Input the user entered.
-    int[][] values = new int[9][9];        // The values to be sent to the UI, can contain less than 81 digits in the case of a hint.
-    int[][] errors = new int[9][9];        // All input errors on their location.
-    int[][] enteredValues = new int[9][9]; // All values entered by the user on their location.
+    int[][] values = new int[9][9];               // The values to be sent to the UI, can contain less than 81 digits in the case of a hint.
+    int[][] errors = new int[9][9];               // All input errors on their location.
+    int[][] enteredValues = new int[9][9];        // All values entered by the user on their location.
 
     private boolean playAnimation = false;
 
     private MainActivity activity;
 
     private SolveMode solveMode;
+
     private enum SolveMode {
         NORMAL, HINT, ANIMATION
     }
@@ -46,28 +47,25 @@ public class DataFragment extends Fragment implements ASyncSolver.solverListener
         this.activity = (MainActivity) activity;
     }
 
+    /**
+     * onCreate will only be called the first time.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
-//        if (solver != null) {
-//            solver.attach(this);
-//        }
-        activity.refreshSudokuView(values, errors, enteredValues);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // onCreateView will still be called after every re-orientation. Use this to send the latest values to the activity.
         activity.refreshSudokuView(values, errors, enteredValues);
-
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     public void solve() {
-
-        clearErrors();
+        errors = null;
         toggleSolveMode(true);
 
         if (AppPreferences.solutionShouldAnimate(activity)) {
@@ -97,10 +95,6 @@ public class DataFragment extends Fragment implements ASyncSolver.solverListener
         solver = new ASyncSolver(getActivity(), this, false);
         originalInputValues = copyArray(values);
         solver.execute(values);
-    }
-
-    private void clearErrors() {
-        errors = null;
     }
 
     public void setNumberForSelectedField(int number, int selectedX, int selectedY) {
@@ -168,47 +162,33 @@ public class DataFragment extends Fragment implements ASyncSolver.solverListener
         activity.toggleSolveMode(solveMode);
     }
 
-
     @Override
     public void valueAdded(int[][] values) {
-//        this.solver = solver;
         this.values = values;
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                refreshSudokuView();
-//            }
-//        });
         activity.refreshSudokuView(values, errors, enteredValues);
     }
 
     @Override
     public void sudokuHasNoSolution() {
-//        this.solver = solver;
-
         final Context context = getActivity();
 
+        // Display the original values (from before solver tried to find a solution).
         values = originalInputValues;
-        cancelASyncTask();
-        toggleSolveMode(false);
-        Toast.makeText(context, "This Sudoku has no solution.", Toast.LENGTH_SHORT).show();
 
-        activity.refreshSudokuView(values, errors, enteredValues);
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                // Sudoku has no solution, send the original input to the view.
-//
-//                refreshSudokuView();
-//
-//
-//            }
-//        });
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                toggleSolveMode(false);
+                Toast.makeText(context, "This Sudoku has no solution.", Toast.LENGTH_SHORT).show();
+                cancelASyncTask();
+
+                activity.refreshSudokuView(originalInputValues, errors, enteredValues);
+            }
+        });
     }
 
     @Override
     public void sudokuSolved(int[][] values) {
-//        this.solver = solver;
         this.values = values;
         toggleSolveMode(false);
 
@@ -228,6 +208,9 @@ public class DataFragment extends Fragment implements ASyncSolver.solverListener
         }
     }
 
+    /**
+     * Returns a copy (new object) of the supplied array.
+     */
     private int[][] copyArray(int[][] array) {
         int[][] newArray = new int[array.length][array.length];
 

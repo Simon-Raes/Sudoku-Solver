@@ -96,36 +96,48 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
     private void initButtons(View view) {
         btnSolve = (Button) view.findViewById(R.id.btnSolve);
         btnSolve.setOnClickListener(this);
+
         btnHint = (Button) view.findViewById(R.id.btnHint);
         btnHint.setOnClickListener(this);
+
         btnDelete = (ImageButton) view.findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(this);
+
         btnClear = (Button) view.findViewById(R.id.btnClear);
         btnClear.setOnClickListener(this);
+
         btnOne = (Button) view.findViewById(R.id.btnOne);
         btnOne.setOnClickListener(this);
         numberButtons.add(btnOne);
+
         btnTwo = (Button) view.findViewById(R.id.btnTwo);
         btnTwo.setOnClickListener(this);
         numberButtons.add(btnTwo);
+
         btnThree = (Button) view.findViewById(R.id.btnThree);
         btnThree.setOnClickListener(this);
         numberButtons.add(btnThree);
+
         btnFour = (Button) view.findViewById(R.id.btnFour);
         btnFour.setOnClickListener(this);
         numberButtons.add(btnFour);
+
         btnFive = (Button) view.findViewById(R.id.btnFive);
         btnFive.setOnClickListener(this);
         numberButtons.add(btnFive);
+
         btnSix = (Button) view.findViewById(R.id.btnSix);
         btnSix.setOnClickListener(this);
         numberButtons.add(btnSix);
+
         btnSeven = (Button) view.findViewById(R.id.btnSeven);
         btnSeven.setOnClickListener(this);
         numberButtons.add(btnSeven);
+
         btnEight = (Button) view.findViewById(R.id.btnEight);
         btnEight.setOnClickListener(this);
         numberButtons.add(btnEight);
+
         btnNine = (Button) view.findViewById(R.id.btnNine);
         btnNine.setOnClickListener(this);
         numberButtons.add(btnNine);

@@ -83,7 +83,6 @@ public class SudokuView extends View {
 
     @Override
     protected void onDraw(final Canvas canvas) {
-        System.out.println("sudokview drawing");
         drawBackground(canvas);
         drawGridLines(canvas);
         drawSelectionBox(canvas);
@@ -105,8 +104,6 @@ public class SudokuView extends View {
         majorLinesPaint.setColor(getResources().getColor(R.color.TextGrey));
 
         // Slight overdraw here (some of the small gridlines are overwritten by major gridlines)
-
-        System.out.println("draw gridlines, values.length = "+values.length);
 
         // Draw the minor grid lines
         for (int i = 1; i < values.length; i++) {

@@ -116,7 +116,6 @@ public class MainActivity extends FragmentActivity implements NumpadFragment.num
     }
 
     public void refreshSudokuView(int[][] values, int[][] errors, int[][] enteredValues) {
-        System.out.println("activity refreshSudokuView");
         sudokuViewFragment.setValues(values, errors, enteredValues);
     }
 
@@ -138,5 +137,4 @@ public class MainActivity extends FragmentActivity implements NumpadFragment.num
     public int getSelectedY() {
         return sudokuViewFragment.getSelectedY();
     }
-
 }
