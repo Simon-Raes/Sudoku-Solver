@@ -4,16 +4,16 @@ import android.content.Context;
 import android.os.AsyncTask;
 import be.simonraes.sudokusolver.exception.SolutionFoundException;
 import be.simonraes.sudokusolver.util.AppPreferences;
+import be.simonraes.sudokusolver.util.Printer;
 
 /**
  * Created by Simon Raes on 28/07/2014.
  */
-public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
+public class ASyncSolver extends AsyncTask<GridValue[][], GridValue[][], GridValue[][]> {
 
-    private final int MAX_DURATION = 250;
+    private final int MAX_DURATION = 250; // Timeout for the solver that checks if a Sudoku has a solution.
 
-    private int[][] values;
-    private int[][] errorValues = new int[9][9];
+    private GridValue[][] values;
 
     private Context context;
     private solverListener delegate;
@@ -21,15 +21,13 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
 
     private long startTime;
 
-
     public interface solverListener {
-        public void valueAdded(int[][] values);
+        public void valueAdded();
 
         public void sudokuHasNoSolution();
 
-        public void sudokuSolved(int[][] values);
+        public void sudokuSolved();
     }
-
 
     public ASyncSolver(Context context, solverListener delegate, boolean animateSolution) {
         this.context = context;
@@ -39,11 +37,13 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
         delegateAlerted = false;
     }
 
-
     @Override
-    protected int[][] doInBackground(int[][]... ints) {
+    protected GridValue[][] doInBackground(GridValue[][]... ints) {
 
         this.values = ints[0];
+
+        System.out.println("Solver starting with values ");
+        Printer.printArray(values);
 
         startTime = System.currentTimeMillis();
         solutionFound = false;
@@ -60,17 +60,15 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
     }
 
     @Override
-    protected void onProgressUpdate(int[][]... values) {
+    protected void onProgressUpdate(GridValue[][]... values) {
         super.onProgressUpdate(values);
-        if (delegate != null) {
-            delegate.valueAdded(values[0]);
-        }
+        delegate.valueAdded();
     }
 
     @Override
-    protected void onPostExecute(int[][] ints) {
+    protected void onPostExecute(GridValue[][] ints) {
         super.onPostExecute(ints);
-        delegate.sudokuSolved(ints);
+        delegate.sudokuSolved();
     }
 
     @Override
@@ -78,22 +76,22 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
         clearData();
     }
 
-
-    public boolean isErrorFree(int[][] model) {
+    public boolean isErrorFree(GridValue[][] model) {
         this.values = model;
 
-        errorValues = new int[9][9];
-
+        clearErrors();
         boolean errorFree = true;
+
         for (int i = 0; i < model.length; i++) {
             for (int j = 0; j < model.length; j++) {
-                if (model[i][j] != 0) {
-                    // Make sure all 3 checks are executed so all errorValues are found.
-                    boolean rowHasErrors = rowContainsDuplicates(i, j, model[i][j]);
-                    boolean colHasErrors = colContainsDuplicates(i, j, model[i][j]);
-                    boolean boxHasErrors = boxContainsDuplicates(i, j, model[i][j]);
+                if (model[i][j] != null && model[i][j].getValue() != 0) {
+                    // Make sure all 3 checks are executed so all errors are found.
+                    boolean rowHasErrors = rowContainsDuplicates(i, j, model[i][j].getValue());
+                    boolean colHasErrors = colContainsDuplicates(i, j, model[i][j].getValue());
+                    boolean boxHasErrors = boxContainsDuplicates(i, j, model[i][j].getValue());
 
                     if (rowHasErrors || colHasErrors || boxHasErrors) {
+                        model[i][j].setError(true);
                         errorFree = false;
                     }
                 }
@@ -102,6 +100,18 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
         return errorFree;
     }
 
+    /**
+     * Marks every cell as error free.
+     */
+    private void clearErrors() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (values[i][j] != null) {
+                    values[i][j].setError(false);
+                }
+            }
+        }
+    }
 
     private void solve(int row, int col) throws SolutionFoundException {
 
@@ -120,15 +130,16 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
             }
 
             // If the cell is not empty, continue with the next cell
-            if (values[row][col] != 0) {
+            if (values[row][col] != null && values[row][col].getValue() != 0) {
                 next(row, col);
             } else {
                 // Find a valid number for the empty cell
                 for (int num = 1; num < values.length + 1; num++) {
                     if (checkRow(row, num) && checkCol(col, num) && checkBox(row, col, num)) {
 
-
-                        values[row][col] = num;
+                        GridValue newValue = new GridValue(num);
+                        newValue.setSolution(true);
+                        values[row][col] = newValue;
 
                         if (animateSolution) {
                             //  alert the listener a new value has been added
@@ -143,7 +154,6 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
                             }
                         }
 
-
                         // Delegate work on the next cell to a recursive call
                         if (!isCancelled()) {
                             next(row, col);
@@ -152,7 +162,7 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
                 }
 
                 // No valid number was found, clean up and return to caller
-                values[row][col] = 0;
+                values[row][col] = null;
             }
         }
     }
@@ -163,7 +173,7 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
      */
     protected boolean checkRow(int row, int num) {
         for (int col = 0; col < values.length; col++) {
-            if (values[row][col] == num) {
+            if (values[row][col] != null && values[row][col].getValue() == num) {
                 return false;
             }
         }
@@ -174,10 +184,11 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
      * Checks if num is an acceptable value for the given column
      */
     protected boolean checkCol(int col, int num) {
-        for (int row = 0; row < values.length; row++)
-            if (values[row][col] == num)
+        for (GridValue[] value : values) {
+            if (value[col] != null && value[col].getValue() == num) {
                 return false;
-
+            }
+        }
         return true;
     }
 
@@ -188,42 +199,47 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
         row = (row / 3) * 3;
         col = (col / 3) * 3;
 
-        for (int r = 0; r < 3; r++)
-            for (int c = 0; c < 3; c++)
-                if (values[row + r][col + c] == num)
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                if (values[row + r][col + c] != null && values[row + r][col + c].getValue() == num)
                     return false;
-
+            }
+        }
         return true;
     }
 
     private boolean rowContainsDuplicates(int row, int column, int num) {
-        int counter = 0;
+        int errorCounter = 0;
         for (int col = 0; col < values.length; col++) {
             if (col != column) {
-                if (values[row][col] == num) {
-                    errorValues[row][col] = num;
-                    counter++;
+                if (values[row][col] != null) {
+                    if (values[row][col].getValue() == num) {
+                        values[row][col].setError(true);
+                        errorCounter++;
+                    }
                 }
             }
         }
-        return counter > 0;
+        return errorCounter > 0;
     }
 
     private boolean colContainsDuplicates(int roww, int col, int num) {
-        int counter = 0;
+        int errorCounter = 0;
         for (int row = 0; row < values.length; row++) {
             if (row != roww) {
-                if (values[row][col] == num) {
-                    errorValues[row][col] = num;
-                    counter++;
+                if (values[row][col] != null) {
+                    if (values[row][col].getValue() == num) {
+                        values[row][col].setError(true);
+                        errorCounter++;
+                    }
                 }
             }
         }
-        return counter > 0;
+        return errorCounter > 0;
     }
 
     private boolean boxContainsDuplicates(int row, int col, int num) {
-        int counter = 0;
+        int errorCounter = 0;
 
         int ogRow = row;
         int ogCol = col;
@@ -231,16 +247,19 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
         row = (row / 3) * 3;
         col = (col / 3) * 3;
 
-        for (int r = 0; r < 3; r++)
-            for (int c = 0; c < 3; c++)
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
                 if (r + row != ogRow && c + col != ogCol) {
-                    if (values[row + r][col + c] == num) {
-                        errorValues[row + r][col + c] = num;
-                        counter++;
+                    if (values[row + r][col + c] != null) {
+                        if (values[row + r][col + c].getValue() == num) {
+                            values[row + r][col + c].setError(true);
+                            errorCounter++;
+                        }
                     }
-
                 }
-        return counter > 0;
+            }
+        }
+        return errorCounter > 0;
     }
 
     /**
@@ -253,14 +272,7 @@ public class ASyncSolver extends AsyncTask<int[][], int[][], int[][]> {
             solve(row + 1, 0);
     }
 
-
-    public int[][] getErrorValues() {
-        return errorValues;
-    }
-
     public void clearData() {
         values = null;
-        errorValues = new int[9][9];
     }
-
 }

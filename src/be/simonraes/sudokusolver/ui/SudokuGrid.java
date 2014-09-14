@@ -9,12 +9,13 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import be.simonraes.sudokusolver.R;
+import be.simonraes.sudokusolver.model.GridValue;
 
 /**
  * Custom View to display a 9*9 Sudoku grid.
  * Created by Simon Raes on 25/07/2014.
  */
-public class SudokuView extends View {
+public class SudokuGrid extends View {
 
     private static final String TAG = "SudokuView";
 
@@ -23,21 +24,22 @@ public class SudokuView extends View {
     private int selectionRow = -1;     // X index of selection (0-8)
     private int selectionCol = -1;     // Y index of selection (0-8)
 
-    private int[][] values;
-    private int[][] errors;
-    private int[][] enteredValues;
+    private GridValue[][] gridValues;
+//    private int[][] values;
+//    private int[][] errors;
+//    private int[][] enteredValues;
 
-    public SudokuView(Context context) {
+    public SudokuGrid(Context context) {
         super(context);
         setFocusable(true);
         setFocusableInTouchMode(true);
     }
 
-    public SudokuView(Context context, AttributeSet attrs) {
+    public SudokuGrid(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SudokuView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SudokuGrid(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -106,7 +108,7 @@ public class SudokuView extends View {
         // Slight overdraw here (some of the small gridlines are overwritten by major gridlines)
 
         // Draw the minor grid lines
-        for (int i = 1; i < values.length; i++) {
+        for (int i = 1; i < gridValues.length; i++) {
             // Horizontal
             canvas.drawLine(0, i * cellHeight, getWidth(), i * cellHeight, minorLinesPaint);
             // Vertical
@@ -115,7 +117,6 @@ public class SudokuView extends View {
 
         // Draw the major grid lines
         for (int i = 0; i < 4; i++) {
-
             if (i < 3) {
                 // Horizontal
                 canvas.drawLine(0, i * 3 * cellHeight, getWidth(), i * 3 * cellHeight, majorLinesPaint);
@@ -183,7 +184,7 @@ public class SudokuView extends View {
         // Centering in Y: measure ascent/descent first
         float y = cellHeight / 2 - (fm.ascent + fm.descent) / 2;
 
-        if (values != null) {
+        if (gridValues != null) {
 
             Paint paintForSquare = null;
             String textForSquare;
@@ -191,26 +192,39 @@ public class SudokuView extends View {
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
 
+                    if(gridValues[j][i]!=null){
+                        if(gridValues[j][i].isError()){
+                            paintForSquare = errorPaint;
+                        } else
+                        if(gridValues[j][i].isInput()){
+                            paintForSquare = enteredPaint;
+                        }
+                        else
+                        {
+                            paintForSquare = textPaint;
+                        }
+                    }
                     // Set correct paint style.
-                    if (enteredValues[j][i] == values[j][i]) {
-                        paintForSquare = enteredPaint;
-                    }
-                    if (errors != null && errors[j][i] != 0 && errors[j][i] == values[j][i]) {
-                        paintForSquare = errorPaint;
-                    }
-                    if (paintForSquare == null) {
-                        paintForSquare = textPaint;
-                    }
+//                    if (enteredValues[j][i] == gridValues[j][i]) {
+//                        paintForSquare = enteredPaint;
+//                    }
+//                    if (errors != null && errors[j][i] != 0 && errors[j][i] == gridValues[j][i]) {
+//                        paintForSquare = errorPaint;
+//                    }
+//                    if (paintForSquare == null) {
+//                        paintForSquare = textPaint;
+//                    }
 
                     // Set text for square.
-                    if (Integer.toString(values[j][i]).equals("0")) {
-                        textForSquare = "";
-                    } else {
-                        textForSquare = Integer.toString(values[j][i]);
+                    if(gridValues[j][i]!=null) {
+                        if (Integer.toString(gridValues[j][i].getValue()).equals("0")) {
+                            textForSquare = "";
+                        } else {
+                            textForSquare = Integer.toString(gridValues[j][i].getValue());
+                        }
+
+                        canvas.drawText(textForSquare, i * cellWidth + x, j * cellHeight + y, paintForSquare);
                     }
-
-                    canvas.drawText(textForSquare, i * cellWidth + x, j * cellHeight + y, paintForSquare);
-
                     // Reset paint so check will still work for the next square.
                     paintForSquare = null;
                 }
@@ -246,10 +260,10 @@ public class SudokuView extends View {
     }
 
 
-    public void setValues(int[][] values, int[][] errors, int[][] enteredValues) {
-        this.values = values;
-        this.errors = errors;
-        this.enteredValues = enteredValues;
+    public void setValues(GridValue[][] values) {
+        this.gridValues = values;
+//        this.errors = errors;
+//        this.enteredValues = enteredValues;
         invalidate();
     }
 

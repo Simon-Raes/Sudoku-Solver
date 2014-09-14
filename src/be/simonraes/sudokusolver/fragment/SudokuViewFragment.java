@@ -7,14 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import be.simonraes.sudokusolver.R;
-import be.simonraes.sudokusolver.ui.SudokuView;
+import be.simonraes.sudokusolver.model.GridValue;
+import be.simonraes.sudokusolver.ui.SudokuGrid;
 
 /**
  * Created by Simon Raes on 26/07/2014.
  */
 public class SudokuViewFragment extends Fragment {
 
-    private SudokuView sudokuView;
+    private SudokuGrid sudokuGrid;
 
     @Override
     public void onAttach(Activity activity) {
@@ -28,19 +29,19 @@ public class SudokuViewFragment extends Fragment {
         System.out.println("sudokufragment oncreateview");
         View view = inflater.inflate(R.layout.sudokuview_layout, null);
 
-        sudokuView = (SudokuView) view.findViewById(R.id.sudokuView);
+        sudokuGrid = (SudokuGrid) view.findViewById(R.id.sudokuView);
         return view;
     }
 
     public int getSelectedX() {
-        return sudokuView.getSelectedRow();
+        return sudokuGrid.getSelectedRow();
     }
 
     public int getSelectedY() {
-        return sudokuView.getSelectedCol();
+        return sudokuGrid.getSelectedCol();
     }
 
-    public void setValues(int[][] values, int[][] errors, int[][] enteredValues) {
-        sudokuView.setValues(values, errors, enteredValues);
+    public void setValues(GridValue[][] values) {
+        sudokuGrid.setValues(values);
     }
 }

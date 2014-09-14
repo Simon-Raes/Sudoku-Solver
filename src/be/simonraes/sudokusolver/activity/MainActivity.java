@@ -11,6 +11,7 @@ import be.simonraes.sudokusolver.R;
 import be.simonraes.sudokusolver.fragment.DataFragment;
 import be.simonraes.sudokusolver.fragment.NumpadFragment;
 import be.simonraes.sudokusolver.fragment.SudokuViewFragment;
+import be.simonraes.sudokusolver.model.GridValue;
 import be.simonraes.sudokusolver.util.AppPreferences;
 
 public class MainActivity extends FragmentActivity implements NumpadFragment.numPadDelegate {
@@ -115,8 +116,8 @@ public class MainActivity extends FragmentActivity implements NumpadFragment.num
         dataFragment.setNumberForSelectedField(number, sudokuViewFragment.getSelectedX(), sudokuViewFragment.getSelectedY());
     }
 
-    public void refreshSudokuView(int[][] values, int[][] errors, int[][] enteredValues) {
-        sudokuViewFragment.setValues(values, errors, enteredValues);
+    public void refreshSudokuView(GridValue[][] values) {
+        sudokuViewFragment.setValues(values);
     }
 
     public void toggleSolveButtons(boolean enable) {
