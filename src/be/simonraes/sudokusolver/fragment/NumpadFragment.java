@@ -13,13 +13,12 @@ import be.simonraes.sudokusolver.R;
 import java.util.ArrayList;
 
 /**
- * Fragment holding all buttons.
+ * Fragment that holds the buttons.
  * Created by Simon Raes on 26/07/2014.
  */
 public class NumpadFragment extends Fragment implements View.OnClickListener {
 
     private Button btnSolve, btnHint, btnClear;
-    private Button btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine;
     private ArrayList<Button> numberButtons;
     private ImageButton btnDelete;
     private numPadDelegate delegate;
@@ -51,16 +50,11 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
         outState.putBoolean("btnNumbersEnabled", btnNumbersEnabled);
         outState.putBoolean("btnDeleteEnabled", btnDeleteEnabled);
         outState.putBoolean("btnClearIsStop", btnClearIsStop);
-
-
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        setRetainInstance(true);
-
 
         numberButtons = new ArrayList<Button>();
 
@@ -87,7 +81,7 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
         enableSolveButton(btnSolveEnabled);
         enableHintButton(btnHintEnabled);
         enableDeleteButton(btnDeleteEnabled);
-        enableNumPadButtons(btnNumbersEnabled);
+        enableNumberButtons(btnNumbersEnabled);
         setClearButtonText(btnClearIsStop);
 
         return view;
@@ -106,39 +100,39 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
         btnClear = (Button) view.findViewById(R.id.btnClear);
         btnClear.setOnClickListener(this);
 
-        btnOne = (Button) view.findViewById(R.id.btnOne);
+        Button btnOne = (Button) view.findViewById(R.id.btnOne);
         btnOne.setOnClickListener(this);
         numberButtons.add(btnOne);
 
-        btnTwo = (Button) view.findViewById(R.id.btnTwo);
+        Button btnTwo = (Button) view.findViewById(R.id.btnTwo);
         btnTwo.setOnClickListener(this);
         numberButtons.add(btnTwo);
 
-        btnThree = (Button) view.findViewById(R.id.btnThree);
+        Button btnThree = (Button) view.findViewById(R.id.btnThree);
         btnThree.setOnClickListener(this);
         numberButtons.add(btnThree);
 
-        btnFour = (Button) view.findViewById(R.id.btnFour);
+        Button btnFour = (Button) view.findViewById(R.id.btnFour);
         btnFour.setOnClickListener(this);
         numberButtons.add(btnFour);
 
-        btnFive = (Button) view.findViewById(R.id.btnFive);
+        Button btnFive = (Button) view.findViewById(R.id.btnFive);
         btnFive.setOnClickListener(this);
         numberButtons.add(btnFive);
 
-        btnSix = (Button) view.findViewById(R.id.btnSix);
+        Button btnSix = (Button) view.findViewById(R.id.btnSix);
         btnSix.setOnClickListener(this);
         numberButtons.add(btnSix);
 
-        btnSeven = (Button) view.findViewById(R.id.btnSeven);
+        Button btnSeven = (Button) view.findViewById(R.id.btnSeven);
         btnSeven.setOnClickListener(this);
         numberButtons.add(btnSeven);
 
-        btnEight = (Button) view.findViewById(R.id.btnEight);
+        Button btnEight = (Button) view.findViewById(R.id.btnEight);
         btnEight.setOnClickListener(this);
         numberButtons.add(btnEight);
 
-        btnNine = (Button) view.findViewById(R.id.btnNine);
+        Button btnNine = (Button) view.findViewById(R.id.btnNine);
         btnNine.setOnClickListener(this);
         numberButtons.add(btnNine);
     }
@@ -172,7 +166,7 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void enableNumPadButtons(boolean enabled) {
+    public void enableNumberButtons(boolean enabled) {
         btnNumbersEnabled = enabled;
 
         for (Button b : numberButtons) {
@@ -195,13 +189,13 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
             enableDeleteButton(false);
             enableHintButton(false);
             enableSolveButton(false);
-            enableNumPadButtons(false);
+            enableNumberButtons(false);
         } else {
             setClearButtonText(false);
             enableDeleteButton(true);
             enableHintButton(true);
             enableSolveButton(true);
-            enableNumPadButtons(true);
+            enableNumberButtons(true);
         }
     }
 }

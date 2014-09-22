@@ -3,6 +3,7 @@ package be.simonraes.sudokusolver.util;
 import be.simonraes.sudokusolver.model.GridValue;
 
 /**
+ * Help class to output the content of a two-dimensional array.
  * Created by Simon Raes on 14/09/2014.
  */
 public class Printer {
@@ -16,10 +17,9 @@ public class Printer {
                 System.out.println("");
             }
         } else {
-            System.out.println("null");
+            System.out.println("Array is null");
         }
     }
-
 
     public static void printArray(GridValue[][] values){
         if(values!=null) {
@@ -34,7 +34,7 @@ public class Printer {
                 System.out.println("");
             }
         } else {
-            System.out.println("null");
+            System.out.println("Array is null");
         }
     }
 }

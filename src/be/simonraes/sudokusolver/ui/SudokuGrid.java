@@ -17,17 +17,12 @@ import be.simonraes.sudokusolver.model.GridValue;
  */
 public class SudokuGrid extends View {
 
-    private static final String TAG = "SudokuView";
-
     private float cellWidth;               // Width of one tile
     private float cellHeight;              // Height of one tile
-    private int selectionRow = -1;     // X index of selection (0-8)
-    private int selectionCol = -1;     // Y index of selection (0-8)
+    private int selectionRow = -1;         // X index of selection (0-8)
+    private int selectionCol = -1;         // Y index of selection (0-8)
 
     private GridValue[][] gridValues;
-//    private int[][] values;
-//    private int[][] errors;
-//    private int[][] enteredValues;
 
     public SudokuGrid(Context context) {
         super(context);
@@ -138,47 +133,43 @@ public class SudokuGrid extends View {
 
             // Outer circle
             Paint selectionPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            selectionPaint.setColor(getResources().getColor(R.color.HintGreen));
+            selectionPaint.setColor(getResources().getColor(R.color.BongoOrange));
             canvas.drawCircle(getSelectedCol() * cellWidth + cellWidth / 2, getSelectedRow() * cellHeight + cellHeight / 2, cellWidth / 2 - 5, selectionPaint);
 
             // Inner circle
             Paint fillerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             fillerPaint.setColor(getResources().getColor(R.color.VeryLightGrey));
             canvas.drawCircle(getSelectedCol() * cellWidth + cellWidth / 2, getSelectedRow() * cellHeight + cellHeight / 2, cellWidth / 2 - 10, fillerPaint);
-
         }
     }
 
     private void drawNumbers(Canvas canvas) {
 
         // Numbers found by the algorithm.
-        Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(getResources().getColor(R.color.SolveBlue));
-        textPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        textPaint.setTextSize(cellHeight * 0.75f);
-        textPaint.setStrokeWidth(1);
-        textPaint.setTextScaleX(cellWidth / cellHeight);
-        textPaint.setTextAlign(Paint.Align.CENTER);
+        Paint solutionPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        solutionPaint.setColor(getResources().getColor(R.color.SolveBlue));
+        solutionPaint.setStrokeWidth(1);
+        setDefaultPaintSettings(solutionPaint);
+
+        // Numbers that were revealed for a hint
+        Paint hintPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        hintPaint.setColor(getResources().getColor(R.color.HintGreen));
+        hintPaint.setStrokeWidth(1);
+        setDefaultPaintSettings(hintPaint);
 
         // Correct input that was entered by the user.
-        Paint enteredPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        enteredPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        enteredPaint.setTextSize(cellHeight * 0.75f);
-        enteredPaint.setStrokeWidth(1);
-        enteredPaint.setTextScaleX(cellWidth / cellHeight);
-        enteredPaint.setTextAlign(Paint.Align.CENTER);
+        Paint inputPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        inputPaint.setStrokeWidth(1);
+        setDefaultPaintSettings(inputPaint);
 
         // Numbers that make the input impossible to solve.
         Paint errorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         errorPaint.setColor(getResources().getColor(R.color.DireOrange));
-        errorPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        errorPaint.setTextSize(cellHeight * 0.75f);
         errorPaint.setStrokeWidth(3);
-        errorPaint.setTextScaleX(cellWidth / cellHeight);
-        errorPaint.setTextAlign(Paint.Align.CENTER);
+        setDefaultPaintSettings(errorPaint);
 
         // Draw the number in the center of the tile
-        Paint.FontMetrics fm = textPaint.getFontMetrics();
+        Paint.FontMetrics fm = solutionPaint.getFontMetrics();
         // Centering in X: use alignment (and X at midpoint)
         float x = cellWidth / 2;
         // Centering in Y: measure ascent/descent first
@@ -192,31 +183,21 @@ public class SudokuGrid extends View {
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
 
-                    if(gridValues[j][i]!=null){
-                        if(gridValues[j][i].isError()){
+                    // Set correct paint style.
+                    if (gridValues[j][i] != null) {
+                        if (gridValues[j][i].isError()) {
                             paintForSquare = errorPaint;
-                        } else
-                        if(gridValues[j][i].isInput()){
-                            paintForSquare = enteredPaint;
-                        }
-                        else
-                        {
-                            paintForSquare = textPaint;
+                        } else if (gridValues[j][i].isInput()) {
+                            paintForSquare = inputPaint;
+                        } else if (gridValues[j][i].isHint()) {
+                            paintForSquare = hintPaint;
+                        } else {
+                            paintForSquare = solutionPaint;
                         }
                     }
-                    // Set correct paint style.
-//                    if (enteredValues[j][i] == gridValues[j][i]) {
-//                        paintForSquare = enteredPaint;
-//                    }
-//                    if (errors != null && errors[j][i] != 0 && errors[j][i] == gridValues[j][i]) {
-//                        paintForSquare = errorPaint;
-//                    }
-//                    if (paintForSquare == null) {
-//                        paintForSquare = textPaint;
-//                    }
 
                     // Set text for square.
-                    if(gridValues[j][i]!=null) {
+                    if (gridValues[j][i] != null) {
                         if (Integer.toString(gridValues[j][i].getValue()).equals("0")) {
                             textForSquare = "";
                         } else {
@@ -230,6 +211,13 @@ public class SudokuGrid extends View {
                 }
             }
         }
+    }
+
+    private void setDefaultPaintSettings(Paint paint){
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setTextSize(cellHeight * 0.75f);
+        paint.setTextScaleX(cellWidth / cellHeight);
+        paint.setTextAlign(Paint.Align.CENTER);
     }
 
     @Override
@@ -262,8 +250,6 @@ public class SudokuGrid extends View {
 
     public void setValues(GridValue[][] values) {
         this.gridValues = values;
-//        this.errors = errors;
-//        this.enteredValues = enteredValues;
         invalidate();
     }
 

@@ -11,6 +11,7 @@ import be.simonraes.sudokusolver.model.GridValue;
 import be.simonraes.sudokusolver.ui.SudokuGrid;
 
 /**
+ * Fragment that holds the Sudoku grid.
  * Created by Simon Raes on 26/07/2014.
  */
 public class SudokuViewFragment extends Fragment {
@@ -18,15 +19,7 @@ public class SudokuViewFragment extends Fragment {
     private SudokuGrid sudokuGrid;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        System.out.println("sudokufragment attach");
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        System.out.println("sudokufragment oncreateview");
         View view = inflater.inflate(R.layout.sudokuview_layout, null);
 
         sudokuGrid = (SudokuGrid) view.findViewById(R.id.sudokuView);

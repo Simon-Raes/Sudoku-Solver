@@ -12,9 +12,8 @@ import be.simonraes.sudokusolver.fragment.DataFragment;
 import be.simonraes.sudokusolver.fragment.NumpadFragment;
 import be.simonraes.sudokusolver.fragment.SudokuViewFragment;
 import be.simonraes.sudokusolver.model.GridValue;
-import be.simonraes.sudokusolver.util.AppPreferences;
 
-public class MainActivity extends FragmentActivity implements NumpadFragment.numPadDelegate {
+public class MainActivity extends FragmentActivity implements NumpadFragment.numPadDelegate, DataFragment.DataFragmentDelegate {
 
     // Fragments
     private SudokuViewFragment sudokuViewFragment;
@@ -116,25 +115,28 @@ public class MainActivity extends FragmentActivity implements NumpadFragment.num
         dataFragment.setNumberForSelectedField(number, sudokuViewFragment.getSelectedX(), sudokuViewFragment.getSelectedY());
     }
 
-    public void refreshSudokuView(GridValue[][] values) {
-        sudokuViewFragment.setValues(values);
-    }
-
+    @Override
     public void toggleSolveButtons(boolean enable) {
         numpadFragment.enableSolveButton(enable);
         numpadFragment.enableHintButton(enable);
     }
 
-    public void toggleSolveMode(boolean enable) {
-        if (AppPreferences.solutionShouldAnimate(this)) {
-            numpadFragment.toggleSolveMode(enable);
-        }
+    @Override
+    public void updateValues(GridValue[][] values) {
+        sudokuViewFragment.setValues(values);
     }
 
+    @Override
+    public void toggleSolveMode(boolean enable) {
+        numpadFragment.toggleSolveMode(enable);
+    }
+
+    @Override
     public int getSelectedX() {
         return sudokuViewFragment.getSelectedX();
     }
 
+    @Override
     public int getSelectedY() {
         return sudokuViewFragment.getSelectedY();
     }

@@ -1,6 +1,7 @@
 package be.simonraes.sudokusolver.model;
 
 /**
+ * Contains the content of 1 cell.
  * Created by Simon Raes on 14/09/2014.
  */
 public class GridValue {
@@ -19,7 +20,6 @@ public class GridValue {
     public void setValue(int value) {
         this.value = value;
     }
-
 
     public boolean isInput() {
         return input;

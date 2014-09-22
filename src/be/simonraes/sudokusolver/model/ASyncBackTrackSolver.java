@@ -4,37 +4,27 @@ import android.content.Context;
 import android.os.AsyncTask;
 import be.simonraes.sudokusolver.exception.SolutionFoundException;
 import be.simonraes.sudokusolver.util.AppPreferences;
-import be.simonraes.sudokusolver.util.Printer;
 
 /**
+ * Solver using the backtracking algorithm.
  * Created by Simon Raes on 28/07/2014.
  */
-public class ASyncSolver extends AsyncTask<GridValue[][], GridValue[][], GridValue[][]> {
-
-    private final int MAX_DURATION = 250; // Timeout for the solver that checks if a Sudoku has a solution.
+public class ASyncBackTrackSolver extends AsyncTask<GridValue[][], GridValue[][], GridValue[][]> {
 
     private GridValue[][] values;
 
     private Context context;
     private solverListener delegate;
-    private boolean animateSolution, solutionFound, delegateAlerted;
-
-    private long startTime;
+    private boolean animateSolution;
 
     public interface solverListener {
         public void valueAdded();
-
-        public void sudokuHasNoSolution();
-
-        public void sudokuSolved();
     }
 
-    public ASyncSolver(Context context, solverListener delegate, boolean animateSolution) {
+    public ASyncBackTrackSolver(Context context, solverListener delegate, boolean animateSolution) {
         this.context = context;
         this.delegate = delegate;
         this.animateSolution = animateSolution;
-        solutionFound = false;
-        delegateAlerted = false;
     }
 
     @Override
@@ -42,18 +32,10 @@ public class ASyncSolver extends AsyncTask<GridValue[][], GridValue[][], GridVal
 
         this.values = ints[0];
 
-        System.out.println("Solver starting with values ");
-        Printer.printArray(values);
-
-        startTime = System.currentTimeMillis();
-        solutionFound = false;
-
-        if (isErrorFree(values)) {
-            try {
-                solve(0, 0);
-            } catch (SolutionFoundException e) {
-
-            }
+        try {
+            solve(0, 0);
+        } catch (SolutionFoundException e) {
+            // No longer used. BackTrack solver is only used for animation.
         }
 
         return values;
@@ -63,12 +45,6 @@ public class ASyncSolver extends AsyncTask<GridValue[][], GridValue[][], GridVal
     protected void onProgressUpdate(GridValue[][]... values) {
         super.onProgressUpdate(values);
         delegate.valueAdded();
-    }
-
-    @Override
-    protected void onPostExecute(GridValue[][] ints) {
-        super.onPostExecute(ints);
-        delegate.sudokuSolved();
     }
 
     @Override
@@ -115,17 +91,11 @@ public class ASyncSolver extends AsyncTask<GridValue[][], GridValue[][], GridVal
 
     private void solve(int row, int col) throws SolutionFoundException {
 
-        if (!animateSolution && startTime + MAX_DURATION < System.currentTimeMillis() && !solutionFound && !delegateAlerted) {
-            delegate.sudokuHasNoSolution();
-            delegateAlerted = true;
-        }
-
         if (!isCancelled()) {
 
             if (row > values.length - 1) {
 
                 // Exception to break out of code if a solution is found.
-                solutionFound = true;
                 throw new SolutionFoundException();
             }
 
@@ -136,14 +106,12 @@ public class ASyncSolver extends AsyncTask<GridValue[][], GridValue[][], GridVal
                 // Find a valid number for the empty cell
                 for (int num = 1; num < values.length + 1; num++) {
                     if (checkRow(row, num) && checkCol(col, num) && checkBox(row, col, num)) {
-
                         GridValue newValue = new GridValue(num);
                         newValue.setSolution(true);
                         values[row][col] = newValue;
 
                         if (animateSolution) {
                             //  alert the listener a new value has been added
-//                            delegate.valueAdded(this, values);
                             publishProgress(values);
 
                             // Wait x ms before searching for the next value.
@@ -263,7 +231,7 @@ public class ASyncSolver extends AsyncTask<GridValue[][], GridValue[][], GridVal
     }
 
     /**
-     * Calls solve for the next cell
+     * Calls solve for the next cell.
      */
     public void next(int row, int col) throws SolutionFoundException {
         if (col < values.length - 1)
